@@ -1,6 +1,7 @@
 import {call, put} from 'redux-saga/effects';
 import * as types from '../actions/actionTypes';
 import AuthenticationApi from '../api/fbAuthentication';
+import history from '../components/common/history';
 
 export function* logIn(action) {
     try {
@@ -9,7 +10,7 @@ export function* logIn(action) {
 
     } catch (e) {
         yield put({type: types.AUTHENTICATION_FAILURE, error: e});
-
+        history.push(`/error/${e}`);
     }
 }
 
@@ -20,6 +21,6 @@ export function* logOut() {
 
     } catch (e) {
         yield put({type: types.LOG_OUT_FAILURE, message: e.message});
-        
+        history.push(`/error/${e}`);
     }
 }

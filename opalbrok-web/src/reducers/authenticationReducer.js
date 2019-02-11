@@ -15,6 +15,7 @@ export default function authenticationReducer(state = initialState.authenticatio
             return {
                 ...state,
                 loggedIn: true,
+                email: action.data.user.email,
                 logging: false,
                 error: ''
             };

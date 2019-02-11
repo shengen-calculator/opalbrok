@@ -5,7 +5,7 @@ class ErrorPage extends Component {
         return (
             <div>
                 <h1>Error Page</h1>
-
+                <h2>{this.props.match.params.message}</h2>
             </div>
         );
     }

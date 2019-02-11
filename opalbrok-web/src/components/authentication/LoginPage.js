@@ -29,7 +29,7 @@ class LoginPage extends Component {
         this.props.actions.authenticationRequest({
             email: this.state.credentials.email,
             password: this.state.credentials.password
-        });
+        })
     };
 
     render() {
@@ -53,7 +53,10 @@ class LoginPage extends Component {
                            name="password"
                            value={this.state.credentials.password}
                            onChange={this.updateCrdentials}/>
-                    <input type="submit" value ="Log In" onClick={this.login}/>
+                    <input type="submit"
+                           disabled={auth.logging}
+                           value={auth.logging ? 'Logging....' : 'Log In'}
+                           onClick={this.login}/>
                 </form>
 
             </div>
