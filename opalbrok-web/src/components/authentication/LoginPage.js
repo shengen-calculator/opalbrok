@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import * as authenticationAction from '../../actions/authenticationActions';
 import {bindActionCreators} from 'redux';
+import './LoginPage.css';
 
 class LoginPage extends Component {
     constructor(props, context) {
@@ -40,29 +41,33 @@ class LoginPage extends Component {
             return <Redirect to={from}/>
         }
         return (
-            <div>
+            <div className="login-page">
                 <h1>Login Page</h1>
-
-
                 <form>
-                    <input type="text"
-                           name="email"
-                           value={this.state.credentials.email}
-                           onChange={this.updateCrdentials}/>
-                    <input type="password"
-                           name="password"
-                           value={this.state.credentials.password}
-                           onChange={this.updateCrdentials}/>
-                    <input type="submit"
-                           disabled={auth.logging}
-                           value={auth.logging ? 'Logging....' : 'Log In'}
-                           onClick={this.login}/>
+                    <div className="email-input">
+                        <input type="text"
+                               name="email"
+                               value={this.state.credentials.email}
+                               onChange={this.updateCrdentials}/>
+                    </div>
+                    <div className="password-input">
+                        <input type="password"
+                               name="password"
+                               value={this.state.credentials.password}
+                               onChange={this.updateCrdentials}/>
+                    </div>
+                    <div className="submit-input">
+                        <input type="submit"
+                               disabled={auth.logging}
+                               value={auth.logging ? 'Logging....' : 'Log In'}
+                               onClick={this.login}/>
+                    </div>
                 </form>
-
             </div>
         );
     }
 }
+
 function mapStateToProps(state) {
     return {
         auth: state.authentication

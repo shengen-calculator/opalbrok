@@ -28,7 +28,12 @@ class HomePage extends Component {
         const position = this.props.auth.email.indexOf('@');
         const storageRef = storage.ref(
             `/InBox/${this.props.auth.email.substr(0,position)}_${this.state.path.name}`);
-        storageRef.put(this.state.path).catch((e) => {
+        storageRef.put(this.state.path)
+            .then(function (snapshot) {
+                const news = snapshot;
+                return news;
+            })
+            .catch((e) => {
             history.push(`/error/${e.message}`);
         });
     }
