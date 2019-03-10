@@ -1,0 +1,44 @@
+.stats {
+	border-bottom: 1px solid $color-gray-light;
+	border-top: 1px solid $color-gray-light;
+	margin: 0px 0px 60px 0px;
+	padding: 25px 0px;
+
+	span, strong {
+		display: block;
+	}
+
+	span {
+		color: $color-gray;
+		font-size: 15px;
+	}
+
+	strong {
+		font-size: 34px;
+		font-weight: 300;
+		margin-bottom: 5px;
+	}
+}
+
+.stat-item {
+	padding: 5px 0px;
+	position: relative;
+	text-align: center;
+
+	&:after {
+		background-color: $color-gray-light;
+		bottom: 0px;
+		content: '';
+		display: block;
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		width: 1px;
+	}
+
+	&:last-child {
+		&:after {
+			display: none;
+		}
+	}
+}

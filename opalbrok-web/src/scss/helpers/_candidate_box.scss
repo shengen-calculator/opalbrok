@@ -1,0 +1,71 @@
+.candidate-title {
+    background-image: url('../img/map.png');
+    background-position: center center;
+    margin-bottom: -80px;
+}
+
+.candidate-boxes {
+    @extend .clearfix;
+    margin: 0px;
+
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+         .col-sm-3 {
+             &:first-child, &:last-child {
+                 display: none;
+             }
+         }
+    }
+}
+
+.candidate-box {
+    background-color: #fff;
+    border: 1px solid $color-gray-light;
+    border-radius: 3px;
+    margin: 0px 0px 20px 0px;
+    overflow: hidden;
+    position: relative;
+    top: 0px;
+    transition: top .15s linear;
+
+    &:hover {
+        top: -10px;
+    }
+}
+
+.candidate-box-image {
+    img {
+        width: 100%;
+    }
+}
+
+.candidate-box-content {
+    padding: 20px 20px;
+
+    h2 {
+        color: $color-secondary;
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 16px;
+        margin: 0px 0px 10px 0px;
+        overflow: hidden;
+        padding: 0px;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    h3 {
+        color: $color-gray;
+        display: block;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        margin: 0px;
+        overflow: hidden;
+        padding: 0px;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

@@ -1,0 +1,110 @@
+.company-card {
+    border: 1px solid $color-gray-light;
+    border-radius: 3px;
+    margin: 0px 0px 50px 0px;
+}
+
+.company-card-image {
+    padding: 30px 20px;
+    position: relative;
+    text-align: center;
+
+    img {
+        height: auto;
+        width: 90px;
+    }
+
+    span {
+        background-color: $color-secondary;
+        border-radius: 3px 0px 3px 0px;
+        color: #fff;
+        display: block;
+        left: -1px;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 7px 10px;
+        position: absolute;
+        top: -1px;
+    }
+}
+
+.company-card-data {
+    background-color: $color-gray-lighter;
+    border-top: 1px solid $color-gray-light;
+    padding: 15px 0px;
+
+    dl {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    dt {
+        float: left;
+        line-height: 24px;
+        padding: 8px 0px 8px 20px;
+        width: 90px;
+    }
+
+    dd {
+        display: table-cell;
+        line-height: 24px;
+        padding: 8px 20px;
+    }
+}
+
+.company-header {
+    margin: 0px 0px 30px 0px;
+
+    h1 {
+        font-size: 46px;
+        font-weight: 300;
+        margin: 10px 0px 0px 0px;
+        padding: 0px;
+
+        @media (max-width: $screen-xs-max) {
+            font-size: 38px;
+        }
+        
+        span {
+            color: $color-gray;
+            font-size: 18px;
+            font-weight: 300;
+            margin: 17px 0px 0px 30px;
+            padding: 0px;
+        }
+    }
+
+    .btn {
+        margin: 30px 10px 0px 0px;
+    }
+}
+
+.company-stats {
+    @extend .clearfix;
+
+    background-color: $color-gray-lighter;
+    border-radius: 3px;
+    margin: 0px 0px 10px 0px;
+    padding: 20px 0px;
+}
+
+.company-stat {
+    float: left;
+    text-align: center;
+    width: 33%;
+
+    span, strong {
+        display: block;
+    }
+
+    span {
+        color: $color-gray;
+    }
+
+    strong {
+        color: $color-secondary;
+        font-size: 34px;
+        font-weight: 300;
+        margin: 2px 0px 0px 0px;
+    }
+}

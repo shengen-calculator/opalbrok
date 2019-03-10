@@ -1,0 +1,91 @@
+.btn {
+    border-width: 1px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 18px;
+    transition: background-color .15s linear, border .15s linear;
+
+    &:active, &:focus {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    i {
+        margin-right: 12px;
+    }
+}
+
+.btn-default {
+    background-color: rgba(black, .03);
+    background-image: linear-gradient(to top, $color-gray-lighter, #fff);
+    border: 1px solid $color-gray-light;
+    border-radius: 3px;
+    color: $color-black;
+
+    &:active, &:focus, &:hover {
+        background-color: rgba(black, .03);
+        background-image: linear-gradient(to top, #fff, $color-gray-lighter);
+        border-color: darken($color-gray-light, 4%);
+    }
+}
+
+.btn-primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+
+    .fa {
+        color: #fff;
+    }
+
+    &:active, &:focus, &:hover {
+        background-color: $color-primary !important;
+        border-color: $color-primary !important;
+    }
+}
+
+.btn-secondary {
+    background-color: $color-secondary;
+    color: #fff;
+
+    &:active, &:focus, &:hover {
+        background-color: darken($color-secondary, 5%);
+        color: #fff !important;
+    }
+}
+
+.btn-white {
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+
+    &:active, &:focus, &:hover {
+        background-color: transparent;
+        color: #fff !important;
+    }
+}
+
+.btn-lg {
+    font-size: 16px;
+    padding: 16px 32px;
+}
+
+.btn-facebook {
+    background-color: $color-facebook;
+    color: #fff;
+
+    &:active, &:focus, &:hover {
+        background-color: darken($color-facebook, 5%);
+        color: #fff !important;
+    }
+}
+
+.btn-linkedin {
+    background-color: $color-linkedin;
+    color: #fff;
+
+    &:active, &:focus, &:hover {
+        background-color: darken($color-linkedin, 5%);
+        color: #fff !important;
+    }
+}

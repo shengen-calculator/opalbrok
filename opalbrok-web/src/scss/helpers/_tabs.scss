@@ -1,0 +1,62 @@
+.nav-tabs {
+	border-bottom-color: darken($color-gray-light, 5%);
+	margin: 0px 0px 40px 0px;
+
+	li {
+		margin-right: 2px;
+
+		a {
+			border-left-color: rgba(black, .04);
+			border-right-color: rgba(black, .04);
+			border-top-color: rgba(black, .04);
+			border-radius: 3px 3px 0px 0px;
+			color: $color-black;
+			padding: 12px 28px;
+			position: relative;
+
+			strong {
+				font-size: 18px;
+				font-weight: 300;
+			}
+
+			span {
+				color: $color-gray;
+				font-size: 12px;
+				font-weight: 400;
+				margin: 3px 0px 0px 0px;
+			}
+
+			span, strong {
+				display: block;
+			}
+
+			&:active, &:focus, &:hover {
+				background-color: transparent;
+			}
+		}
+
+		@media (max-width: $screen-xs-max) {
+			float: none;
+		}
+		
+		&.active {
+			a {
+				border-left-color: darken($color-gray-light, 5%);
+				border-right-color: darken($color-gray-light, 5%);
+				border-top-color: darken($color-gray-light, 5%);
+
+				&:after {
+					background-color: $color-secondary;
+					border-radius: 1px 1px 0px 0px;
+					content: '';
+					display: block;
+					height: 2px;
+					left: -1px;
+					position: absolute;
+					right: -1px;
+					top: -1px;
+				}
+			}
+		}
+	}
+}

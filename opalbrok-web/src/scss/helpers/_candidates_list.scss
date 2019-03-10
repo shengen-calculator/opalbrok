@@ -1,0 +1,119 @@
+.candidates-list {
+	margin: 0px 0px 60px 0px;
+}
+
+.candidates-list-item {
+	@extend .clearfix;
+	border-bottom: 1px solid rgba(black, .05);
+	margin: 0px;
+	padding: 25px 0px 25px 0px;
+	position: relative;
+
+
+	&:last-child {
+		border-bottom: 0px;
+	}
+}
+
+.candidates-list-item-image {
+	background-color: #fff;
+	border: 1px solid $color-gray-light;
+	border-radius: 50%;
+	float: left;
+	height: 48px;
+	margin: 0px 22px 0px 0px;
+	position: relative;
+	width: 48px;
+
+	img {
+		border-radius: 50%;
+		width: 100%;
+	}
+}
+
+.candidates-list-item-heading {
+	float: left;
+	width: 250px;
+
+	h2 {
+		font-size: 15px;
+		font-weight: 400;
+		margin: 5px 0px 0px 0px;
+		padding: 0px;
+	}
+
+	h3 {
+		color: $color-gray;
+		font-size: 13px;
+		margin: 8px 0px 0px 0px;
+		line-height: 20px;
+		padding: 0px;
+	}
+}
+
+.candidates-list-item-title {
+	display: table-cell;
+}
+
+.candidates-list-item-profile {
+	position: absolute;
+	right: 0px;
+	top: 50%;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+}
+
+.candidates-list-item-location {
+	color: $color-gray;
+	float: left;
+	margin: 14px 0px 0px 60px;
+
+	.fa {
+		color: $color-primary;
+		font-size: 14px;
+		margin: 0px 8px 0px 0px;
+	}
+}
+
+.candidates-list-item-profile-bar {
+	background-color: $color-gray-light;
+	border-radius: 5px;
+	display: block;
+	height: 4px;
+	overflow: hidden;
+	width: 100px;
+
+	span {
+		background-color: $color-secondary;
+		display: block;
+		height: 4px;
+	}
+}
+
+.candidates-list-item-profile-count {
+	color: $color-gray;
+	display: block;
+	font-size: 12px;
+	margin: 0px 0px 8px 0px;
+	text-align: right;
+}
+
+.candidates-list-item-image-label {
+	background-color: $color-gray-lighter;
+	border-radius: 50%;
+	bottom: 0px;
+	box-shadow: 0px 1px 2px rgba(black, .2);
+	display: block;
+	height: 22px;
+	padding: 5px;
+	position: absolute;
+	right: 0px;
+	transform: translateX(25%) translateY(25%);
+	-webkit-transform: translateX(25%) translateY(25%);
+	width: 22px;
+
+	img {
+		border-radius: 0px;
+		width: 100%;
+	}
+}

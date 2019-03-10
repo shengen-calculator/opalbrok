@@ -1,0 +1,257 @@
+label {
+	cursor: pointer;
+	font-weight: 600;
+}
+
+.form-control {
+	-webkit-appearance: none;
+    border-radius: 3px;
+    border: 1px solid lighten($color-gray, 30%);
+    box-shadow: none;
+    color: $color-black;
+    height: 40px;
+
+    &:active, &:focus {
+    	border-color: lighten($color-gray, 12%);
+    	box-shadow: none;
+    }
+}
+
+textarea.form-control {
+    padding: 11px 12px;
+}
+
+.checkbox {
+	label {
+		padding: 0px;
+	}
+}
+
+.checkbox-info {
+    color: $color-gray;
+    margin: 35px 0px 20px 0px;
+
+    a {
+        border-bottom: 1px solid $color-secondary;
+
+        &:active, &:focus, &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+/**
+ * Bootstrap Select
+ */
+
+.bootstrap-select {
+	.bs-caret {
+		display: block;
+		font-size: 9px;;
+		position: absolute;
+		right: 15px;
+		top: 50%;
+		transform: translateY(-50%);
+		-webkit-transform: translateY(-50%);
+
+		i {
+			margin: 0px;
+		}
+	}
+}
+
+.bootstrap-select > .dropdown-toggle {
+    background-color: #fff;
+    border: 1px solid #fff;
+    box-shadow: 0px 1px 2px rgba(black, .15) !important;
+    font-size: 13px;
+    font-weight: 400;
+    outline: none !important;
+
+    &:active, &:focus, &:hover {
+        box-shadow: 0px 1px 2px rgba(black, .15) !important;
+        outline: none !important;
+    }
+}
+
+.dropdown-menu.open {
+    background-color: #fff;
+    border: 1px solid $color-gray-light;
+    border-radius: 3px;
+    box-shadow: none;
+    font-size: 13px;
+    margin: 5px 0px;
+    padding: 8px 0px;
+
+	ul {
+		list-style: none;
+	}
+	
+    li {
+        a {
+            display: block;
+            font-size: 13px;
+            padding-bottom: 8px;
+            padding-top: 8px;
+            transition: all .15s linear;
+
+            &:active, &:focus {
+                outline: 0px;
+            }
+        }
+
+        &.selected {
+            a {
+                background-color: $color-secondary;
+                color: #fff;
+            }
+        }
+    }
+}
+
+/**
+ * Bootstrap Fileinput
+ */
+.file-preview {
+    border-color: $color-gray-light;
+    border-radius: 3px;
+    margin: 0px 0px 15px 0px;
+    padding: 10px;
+}
+
+.file-caption-name {
+    font-size: 13px;
+    margin: 4px 0px 0px 0px;
+
+    span {
+        color: $color-secondary;
+        margin: 0px 8px 0px 0px;
+    }
+}
+
+.file-preview-thumbnails {
+    text-align: center;
+}
+
+.file-preview-frame {
+    border: 0px;
+    box-shadow: none;
+    display: inline-block;
+    float: none;
+    height: auto;
+
+    &:hover {
+        box-shadow: none !important;
+    }
+
+    img {
+        display: inline-block;
+        height: auto;
+        max-width: 100%;
+    }
+}
+
+.file-footer-caption {
+    color: $color-gray !important;
+    margin: 5px 0px 0px 0px;
+    padding: 0px;
+
+    &:hover {
+        color: $color-gray !important;
+    }
+}
+
+.file-input-ajax-new .fileinput-remove {
+    display: none !important;
+}
+
+.file-preview .fileinput-remove {
+    color: $color-red;
+    display: block;
+    opacity: 0.95;
+    transition: all .15s linear;
+
+    &:hover {
+        color: $color-red;
+        opacity: 1;
+    }
+}
+
+.kv-fileinput-caption {
+    &:active, &:focus, &:hover {
+        border-color: $color-gray-light;
+    }
+}
+
+.file-drop-zone {
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.file-drop-zone-title {
+    background-color: $color-gray-lighter;
+    border-radius: 3px;
+    margin: -10px;
+    padding: 56px 0px 57px 0px;
+
+    span {
+        color: $color-black;
+        font-size: 18px;
+        vertical-align: 2px;
+    }
+
+    .fa {
+        color: $color-secondary;
+        font-size: 26px;
+        margin: 0px 15px 0px 0px;
+    }
+}
+
+.file-actions {
+    display: none;
+}
+
+/**
+ * ezMark
+ */
+.ez-hide {
+	opacity: 0;
+}
+
+.ez-checkbox {
+	background-image: url('../img/checkbox.png');
+	background-size: 16px 16px;
+	display: inline-block;
+	height: 16px;
+	margin: 0px 8px 0px 0px;
+	vertical-align: -3px;
+	width: 16px;
+}
+
+.ez-checked {
+	background-image: url('../img/checkbox-open.png');
+}
+
+.ez-radio {
+	background-image: url('../img/radio.png');
+	background-size: 16px 16px;
+	display: inline-block;
+	height: 16px;
+	margin: 0px 8px 0px 0px;
+	vertical-align: -3px;
+	width: 16px;
+}
+
+.ez-selected {
+	background-image: url('../img/radio-open.png');
+}
+
+/**
+ * Wysiwyg
+ */
+.wysihtml5-toolbar {
+	.btn {
+		height: 40px;
+	}
+}

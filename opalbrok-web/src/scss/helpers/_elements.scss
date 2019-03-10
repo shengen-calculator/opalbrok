@@ -1,0 +1,38 @@
+html {
+	height: 100%;
+	overflow-x: hidden;
+}
+
+body {
+    background-color: $color-gray-lighter;
+    color: $color-black;
+    font-family: "Open Sans";
+    font-size: 13px;
+	min-height: 100%;
+	overflow-x: hidden;
+	width: 100%;
+}
+
+p {
+	line-height: 24px;
+}
+
+a {
+    color: $color-secondary;
+    transition: color .15s linear;
+
+    &:hover {
+        color: darken($color-secondary, 5%);
+    }
+}
+
+.main ul {
+	list-style-position: inside;
+	list-style-type: circle;
+	margin: 0px 0px 20px 0px;
+	padding: 0px;
+
+	li {
+		line-height: 24px;
+	}
+}

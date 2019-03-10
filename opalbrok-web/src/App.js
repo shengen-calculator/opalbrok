@@ -1,31 +1,55 @@
 import React, {Component} from 'react';
 import HomePage from './components/home/HomePage';
-import ResultPage from './components/result/ResultPage';
 import ErrorPage from './components/error/ErrorPage';
 import LoginPage from './components/authentication/LoginPage';
 import {bindActionCreators} from 'redux';
-import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import history from '../src/components/common/history';
 import PrivateRoute from './components/common/PrivateRoute';
 import * as authenticationAction from './actions/authenticationActions';
-import './App.css';
 import { Router, Route } from 'react-router-dom';
 
+import './css/font-style.css';
+import './css/font-awesome.min.css';
+import './css/App.css';
+
 class App extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.logout = this.logout.bind(this);
+    }
+
+    logout() {
+        this.props.actions.logoutRequest();
+        history.push('/');
+    }
+
     render() {
         const {auth} = this.props;
         return (
             <Router history={history}>
-                <div>
-                    <nav>
-                        <NavLink exact to="/">Home Page</NavLink>
-                        {" | "}
-                        <NavLink to="/login">Login Page</NavLink>
-                    </nav>
+                <div className="page-wrapper">
+                    <div className="header-wrapper">
+                        <div className="header">
+                            <div className="header-top">
+                                <div className="container">
+                                    <div className="header-brand">
+
+                                        <div className="header-slogan">
+                                        <span
+                                            className="header-slogan-text">Custom Broker</span>
+                                        </div>
+                                    </div>
+
+                                    <ul className="header-actions nav nav-pills">
+                                        <li><a href="#logout" onClick={this.logout}>{auth.loggedIn ? 'Log Out' : 'Log In'}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <Route path="/login" component={LoginPage}/>
                     <Route path="/error/:message" component={ErrorPage}/>
-                    <Route path="/result/:code" component={ResultPage}/>
                     <PrivateRoute exact path="/"
                                   authed={auth.loggedIn}
                                   component={HomePage}

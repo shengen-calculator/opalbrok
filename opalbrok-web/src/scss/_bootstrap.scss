@@ -1,0 +1,227 @@
+$icon-font-path: '../../assets/libraries/bootstrap-sass/fonts/bootstrap/';
+
+/*------------------------------------------------------------------
+
+[Table of contents]
+
+1. Bootstrap Library
+2. Elements
+3. Forms
+4. Commons
+5. Buttons
+6. Header
+7. Navigation
+8. Footer
+9. Stats
+10. Filter
+11. Hero Content
+12. Panels
+13. Partners
+14. Posts
+15. Call to action
+16. Pricing
+17. Candites List
+18. Position
+19. Position List
+20. Position List Small
+21. Company List
+22. Company
+23. Newsletter
+24. Action bar
+25. Resume
+26. Pagination
+27. Tabs
+28. Widgets
+*/
+
+/*------------------------------------------------------------------
+[ 1. Bootstrap Library ]
+*/
+@import '../libraries/bootstrap-sass/stylesheets/bootstrap';
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/variables";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/mixins";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/normalize";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/print";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/glyphicons";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/scaffolding";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/type";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/code";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/grid";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/tables";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/forms";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/buttons";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/component-animations";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/dropdowns";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/button-groups";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/input-groups";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/navs";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/breadcrumbs";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/pagination";
+@import "../libraries/bootstrap-sass/stylesheets/bootstrap/utilities";
+
+@media (min-width: $screen-lg-min) {
+    .container {
+        width: $screen-md-min !important;
+    }
+}
+
+@import '../libraries/bootstrap-sass/stylesheets/bootstrap';
+
+/*------------------------------------------------------------------
+[ 2. Elements ]
+*/
+@import 'helpers/elements';
+
+/*------------------------------------------------------------------
+[ 3. Forms ]
+*/
+@import 'helpers/forms';
+
+/*------------------------------------------------------------------
+[ 4. Common Classes ]
+*/
+@import 'helpers/commons';
+
+/*------------------------------------------------------------------
+[ 5. Buttons ]
+*/
+@import 'helpers/buttons';
+
+/*------------------------------------------------------------------
+[ 6. Header ]
+*/
+@import 'helpers/header';
+
+/*------------------------------------------------------------------
+[ 7. Navigation ]
+*/
+@import 'helpers/navigation';
+
+/*------------------------------------------------------------------
+[ 8. Footer ]
+*/
+@import 'helpers/footer';
+
+/*------------------------------------------------------------------
+[ 9. Stats ]
+*/
+@import 'helpers/stats';
+
+/*------------------------------------------------------------------
+[ 10. Filter ]
+*/
+@import 'helpers/filter';
+
+/*------------------------------------------------------------------
+[ 11. Hero Content ]
+*/
+@import 'helpers/hero_content';
+
+/*------------------------------------------------------------------
+[ 12. Panels ]
+*/
+@import 'helpers/panels';
+
+/*------------------------------------------------------------------
+[ 13. Partners ]
+*/
+@import 'helpers/partners';
+
+/*------------------------------------------------------------------
+[ 14. Post ]
+*/
+@import 'helpers/post';
+
+/*------------------------------------------------------------------
+[ 15. Call to action ]
+*/
+@import 'helpers/cta';
+
+/*------------------------------------------------------------------
+[ 16. Pricing ]
+*/
+@import 'helpers/pricing';
+
+/*------------------------------------------------------------------
+[ 17. Candidates list ]
+*/
+@import 'helpers/candidates_list';
+@import 'helpers/candidate_box';
+
+/*------------------------------------------------------------------
+[ 18. Position ]
+*/
+@import 'helpers/position';
+
+/*------------------------------------------------------------------
+[ 19. Position list ]
+*/
+@import 'helpers/positions_list';
+
+/*------------------------------------------------------------------
+[ 20. Position list small ]
+*/
+@import 'helpers/positions_list_small';
+
+/*------------------------------------------------------------------
+[ 21. Companies list ]
+*/
+@import 'helpers/companies_list';
+
+/*------------------------------------------------------------------
+[ 22. Company ]
+*/
+@import 'helpers/company';
+
+/*------------------------------------------------------------------
+[ 23. Newsletter ]
+*/
+@import 'helpers/newsletter';
+
+/*------------------------------------------------------------------
+[ 24. Action Bar ]
+*/
+@import 'helpers/action_bar';
+
+/*------------------------------------------------------------------
+[ 25. Resume ]
+*/
+@import 'helpers/resume';
+
+/*------------------------------------------------------------------
+[ 26. Pagination ]
+*/
+@import 'helpers/pagination';
+
+/*------------------------------------------------------------------
+[ 27. Tabs ]
+*/
+@import 'helpers/tabs';
+
+/*------------------------------------------------------------------
+[ 28. Widgets ]
+*/
+@import 'helpers/widgets';
+
+.page-wrapper {
+	background-color: #fff;
+    display: table;
+    height: 100%;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+
+	.layout-boxed & {
+		box-shadow: 0px 0px 8px rgba(black, .08);
+		margin: 0px auto;
+		width: 1022px;
+	}
+}
+
+.main-wrapper {
+    display: table-row;
+}
+
+.main {
+    padding: 60px 0px;
+}

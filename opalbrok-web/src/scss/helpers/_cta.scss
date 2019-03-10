@@ -1,0 +1,40 @@
+.cta-text {
+    border-top: 1px solid $color-gray-light;
+    color: $color-gray;
+    font-size: 14px;
+    margin: 0px 0px -60px 0px;
+    padding: 45px 0px;
+    text-align: center;
+
+    @media (max-width: $screen-xs-max) {
+        font-size: 13px;
+    }
+
+    .btn {
+        font-size: 14px;
+        margin: 0px 10px;
+        padding: 12px 40px;
+
+        @media (max-width: $screen-xs-max) {
+            font-size: 13px;
+            padding: 8px 15px;
+        }
+    }
+}
+
+.cta-text-inner {
+    display: inline-block;
+    position: relative;
+}
+
+.cta-text-before {
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateX(-100%) translateY(-50%);
+    -webkit-transform: translateX(-100%) translateY(-50%);
+
+    @media (max-width: $screen-xs-max) {
+        display: none;
+    }
+}

@@ -1,0 +1,146 @@
+.positions-list {
+	margin-bottom: 60px;
+}
+
+.positions-list-item {
+	border-bottom: 1px solid rgba(black, .05);
+	margin: 0px 0px 0px 0px;
+	padding: 25px 0px 25px 0px;
+	position: relative;
+
+	&:last-child {
+		border-bottom: 0px;
+	}
+
+	h2 {
+		font-size: 15px;
+		font-weight: 400;
+		line-height: 24px;
+		margin: 0px;
+		padding: 0px;
+
+		span {
+			background-color: $color-primary;
+			border-radius: 3px;
+			color: #fff;
+			display: inline-block;
+			font-size: 9px;
+			font-weight: 700;
+			line-height: 1;
+			margin: -3px 0px 0px 15px;
+			padding: 4px 12px;
+			text-transform: uppercase;
+			vertical-align: middle;
+		}
+	}
+
+	h3 {
+		color: $color-gray;
+		font-size: 13px;
+		margin: 8px 0px 0px 0px;
+		line-height: 20px;
+		padding: 0px;
+		vertical-align: middle;
+
+		span {
+			display: inline-block;
+			margin: 0px 5px 0px 0px;
+			vertical-align: 1px;
+		}
+
+		img {
+			height: 13px;
+			vertical-align: middle;
+		}
+	}
+}
+
+.position-list-item-date {
+	color: $color-gray;
+	font-size: 12px;
+	position: absolute;
+	right: 0px;
+	top: 29px;
+}
+
+.position-list-item-action {
+	color: $color-primary;
+	font-size: 12px;
+	position: absolute;
+	top: 60px;
+	right: 0px;
+
+	a {
+		border-bottom: 1px dashed $color-primary;
+		color: $color-primary;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.positions-list-small {
+	background-color: $color-gray-lighter;
+	border-radius: 3px;
+	margin: 0px 0px 60px 0px;
+	padding: 20px;
+}
+
+.positions-list-small-item {
+	border-bottom: 1px solid rgba(black, .05);
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+
+	&:last-child {
+		border: 0px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	h2 {
+		border: 0px;
+		color: $color-secondary;
+		display: block;
+		font-size: 13px;
+		font-weight: 600;
+		margin: 0px;
+		overflow: hidden;
+		padding: 0px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		span {
+			background-color: $color-primary;
+			border-radius: 3px;
+			color: #fff;
+			display: inline-block;
+			font-size: 9px;
+			font-weight: 700;
+			margin: 0px 0px 0px 15px;
+			padding: 5px 12px;
+			text-transform: uppercase;
+			vertical-align: middle;
+		}
+	}
+
+	h3 {
+		color: $color-gray;
+		font-size: 13px;
+		margin: 10px 0px 0px 0px;
+		line-height: 20px;
+		padding: 0px;
+		vertical-align: middle;
+
+		span {
+			display: inline-block;
+			margin: 0px 5px 0px 0px;
+			vertical-align: 1px;
+		}
+
+		img {
+			height: 13px;
+			vertical-align: middle;
+		}
+	}
+}

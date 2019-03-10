@@ -1,0 +1,237 @@
+.navbar-toggle {
+    background-color: transparent;
+    border: 2px solid $color-gray-light;
+    border-radius: 3px;
+    display: none;
+    height: 36px;
+    margin: 0px;
+    padding: 5px 6px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 36px;
+
+    .icon-bar {
+        background-color: darken($color-gray-light, 15%);
+        border: 0px;
+        border-radius: 0px;
+        display: block;
+        height: 2px;
+        margin: 4px 0px;
+        width: auto;
+    }
+
+    &:active, &:focus {
+        box-shadow: none;
+        outline: 0px;
+    }
+
+    @media (max-width: $screen-xs-max) {
+        display: block;
+    }
+}
+
+.header-wrapper {
+    display: table-row;
+    height: 1px;
+}
+
+.header-top {
+    padding: 20px 0px;
+    position: relative;
+
+    .header-dark & {
+        background-color: $color-primary;
+        box-shadow: 0px 1px 0px rgba(#fff, .1);
+        color: #fff;
+        z-index: 10;
+    }
+}
+
+.header-brand {
+    float: left;
+
+    .profession {
+        color: $color-secondary;
+        font-size: 40px;
+        margin: 0px 10px 0px 0px;
+        vertical-align: middle;
+    }
+
+    @media (max-width: $screen-xs-max) {
+        display: block;
+        float: none;
+        text-align: center;
+    }
+}
+
+.header-logo {
+    display: inline-block;
+    vertical-align: middle;
+
+    a {
+        &:hover {
+            text-decoration: none;
+        }
+
+        &:active, &:focus {
+            text-decoration: none;
+        }
+    }
+
+    img {
+        margin: 0px 20px 0px 0px;
+        height: 40px;
+        vertical-align: middle;
+    }
+}
+
+.header-logo-text {
+    color: $color-primary;
+    font-weight: 600;
+    font-size: 18px;
+
+    .header-dark & {
+        color: #fff;
+    }
+}
+
+.header-logo-highlight {
+    color: $color-secondary;
+    font-weight: 700;
+    padding: 0px 2px;
+}
+
+.header-slogan {
+    color: $color-gray;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0px 0px 0px 30px;
+    vertical-align: 2px;
+
+    .header-dark & {
+        color: #fff;
+    }
+}
+
+.header-slogan-slash {
+    color: rgba(black, .1);
+    font-size: 46px;
+    font-weight: 300;
+    margin: 0px 10px 0px 0px;
+    vertical-align: middle;
+
+    .header-dark & {
+        color: rgba(white, .4);
+    }
+
+    @media (max-width: $screen-xs-max) {
+        display: none;
+    }
+}
+
+.header-slogan-text {
+    vertical-align: middle;
+
+    @media (max-width: $screen-xs-max) {
+        display: none;
+    }
+}
+
+.nav.header-actions {
+    float: right;
+    margin: 4px 0px 0px 0px;
+
+    @media (max-width: $screen-xs-max) {
+        float: none;
+        text-align: center;
+    }
+
+    li {
+        margin: 0px 0px 0px 5px;
+        padding: 8px 0px;
+
+        @media (max-width: $screen-xs-max) {
+            display: inline-block;
+            float: none;
+        }
+
+        a {
+            border: 2px solid transparent;
+            border-radius: 0px;
+            color: $color-black;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 10px;
+            transition: background-color .15s linear, border .15s linear, color .15s linear;
+
+            .header-dark & {
+                color: #fff;
+            }
+
+            &:hover {
+                color: $color-secondary;
+                background-color: transparent;
+            }
+
+            &.primary {
+                border: 2px solid $color-secondary;
+                background-color: transparent;
+                border-radius: 3px;
+                color: $color-secondary;
+                margin-left: 10px;
+
+                &:hover {
+                    background-color: $color-secondary;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+.header-search {
+    float: right;
+
+    @media (max-width: $screen-xs-max) {
+        float: none;
+    }
+
+    form {
+        font-size: 13px;
+        margin: 0px;
+        padding: 0px;
+        position: relative;
+
+        &:after {
+            color: $color-gray;
+            content: '\f002';
+            display: block;
+            font-family: "FontAwesome";
+            -webkit-font-smoothing: antialiased;
+            position: absolute;
+            right: 15px;
+            top: 9px;
+        }
+    }
+
+    .form-control {
+        border-radius: 0px;
+        border-width: 0px;
+        height: 34px;
+        margin: 17px 0px 0px 0px;
+        padding-right: 40px;
+        width: 240px;
+
+        .navigation-light & {
+            border-radius: 3px;
+            border-width: 2px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            margin: 17px 0px;
+            width: 100%;
+        }
+    }
+}

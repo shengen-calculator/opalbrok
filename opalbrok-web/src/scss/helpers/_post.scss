@@ -1,0 +1,122 @@
+.posts {
+    margin: 0px 0px 60px 0px;
+}
+
+.post-box {
+    @extend .clearfix;
+
+    background-color: $color-gray-lighter;
+    border-radius: 3px;
+    padding: 15px;
+
+    @media (max-width: $screen-xs-max) {
+        margin-bottom: 30px;
+    }
+
+    @media (max-width: $screen-sm-max) {
+        margin-bottom: 20px !important;
+    }
+
+    h2 {
+        font-size: 18px;
+        font-weight: 300;
+        margin: 0px 0px 15px 0px;
+        padding: 0px;
+
+        a {
+            color: $color-black;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    p {
+        color: $color-gray-medium;
+        margin: 0px;
+    }
+
+    &:hover {
+        .post-box-image {
+            opacity: .5;
+
+            &:after {
+                opacity: 1;
+            }
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0px;
+    }
+}
+
+.post-box-small {
+    margin-bottom: 20px;
+}
+
+.post-box-image {
+    border-radius: 3px 3px 0px 0px;
+    margin: 0px 0px 25px 0px;
+    overflow: hidden;
+    position: relative;
+    transition: opacity .15s linear;
+
+    img {
+        width: 100%;
+    }
+
+    &:after {
+        color: rgba($color-black, 1);
+        content: '\f055';
+        font-family: 'FontAwesome';
+        font-size: 54px;
+        left: 50%;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transition: opacity .15s linear;
+        z-index: 9999;
+    }
+
+    .post-box-small & {
+        float: left;
+        margin-bottom: 0px;
+        margin-right: 20px;
+
+        img {
+            width: 175px;
+        }
+
+        &:after {
+            font-size: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            float: none;
+            margin: 0px 0px 20px 0px;
+            width: 100%;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.post-box-content {
+    display: table-cell;
+}
+
+.post-box-read-more {
+    border-bottom: 1px solid $color-secondary;
+    float: right;
+    margin: 15px 0px 5px 0px;
+
+    &:active, &:focus, &:hover {
+        text-decoration: none;
+    }
+}

@@ -1,0 +1,61 @@
+.widget {
+    @extend .clearfix;
+    margin: 0px 0px 50px 0px;
+
+    h2 {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0px 0px 17px 0px;
+        padding: 0px 0px 17px 0px;
+        position: relative;
+
+        &:after {
+            background-color: $color-gray-light;
+            bottom: 0px;
+            content: '';
+            display: block;
+            height: 1px;
+            left: 0px;
+            position: absolute;
+            right: 0px;
+        }
+    }
+
+    p {
+        color: $color-gray;
+    }
+
+    ul.nav {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+
+        li {
+            border-bottom: 1px dashed $color-gray-light;
+            padding: 0px;
+            
+            &:last-child {
+                border-bottom: 0px;
+            }
+        }
+
+        a {
+            color: $color-gray;
+            display: block;
+            padding: 12px 12px;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        span {
+            color: $color-secondary;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 700;
+            vertical-align: -1px;
+            width: 34px;
+        }
+    }
+}

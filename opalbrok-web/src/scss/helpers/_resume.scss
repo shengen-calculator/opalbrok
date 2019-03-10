@@ -1,0 +1,298 @@
+.resume {
+	border: 1px solid $color-gray-light;
+	border-radius: 3px;
+	margin: 0px 0px 60px 0px;
+}
+
+.resume-main {
+	padding: 40px 50px;
+
+	@media (max-width: $screen-xs-max) {
+		padding: 40px 20px;
+	}
+
+	.btn {
+		margin-bottom: 15px;
+	}
+}
+
+.resume-main-image {
+	background-color: #fff;
+	border: 1px solid $color-gray-light;
+	border-radius: 50%;
+	float: left;
+	height: 84px;
+	margin: 0px 50px 0px 0px;
+	position: relative;
+	width: 84px;
+
+	> img {
+		border-radius: 50%;
+		width: 100%;
+	}
+
+	@media (max-width: $screen-xs-max) {
+		float: none;
+	}
+}
+
+.resume-main-image-label {
+	background-color: $color-gray-lighter;
+	border-radius: 50%;
+	bottom: 0px;
+	box-shadow: 0px 1px 2px rgba(black, .2);
+	display: block;
+	height: 30px;
+	padding: 7px;
+	position: absolute;
+	right: 0px;
+	transform: translateX(25%) translateY(25%);
+	width: 30px;
+
+	img {
+		width: 100%;
+	}
+}
+
+.resume-main-contacts {
+	color: $color-gray;
+	margin: 30px 0px 0px 0px;
+
+	a {
+		border-bottom: 1px solid $color-gray-light;
+		color: $color-gray;
+
+		&:active, &:focus, &:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.resume-main-content {
+	display: table-cell;
+
+	h2 {
+		font-size: 28px;
+		font-weight: 300;
+		margin: 13px 0px 0px 0px;
+		padding: 0px;
+	}
+
+	h3 {
+		color: $color-gray-medium;
+		font-size: 17px;
+		font-weight: 300;
+		margin: 10px 0px 0px 0px;
+		padding: 0px;
+	}
+}
+
+.resume-main-actions {
+	margin: 40px 0px 0px 0px;
+
+	a {
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0px;
+		}
+	}
+}
+
+.resume-main-rating {
+	margin: 0px 0px 0px 35px;
+	vertical-align: 3px;
+
+	i {
+		color: $color-yellow;
+		font-size: 15px;
+		margin: 0px 1px;
+	}
+
+	@media (max-width: $screen-xs-max) {
+		display: block;
+		margin: 0px 0px 30px 0px;
+	}
+}
+
+.resume-main-rating-count {
+	color: $color-gray;
+	font-size: 12px;
+	margin: 0px 0px 0px 8px;
+	vertical-align: 1px;
+}
+
+.resume-main-verified {
+	background-color: $color-secondary;
+	border-radius: 50%;
+	color: #fff;
+	display: inline-block;
+	font-size: 13px;
+	height: 24px;
+	line-height: 24px;
+	margin: 0px 0px 0px 15px;
+	text-align: center;
+	vertical-align: 5px;
+	width: 24px;
+
+	.fa {
+		margin-top: 5px;
+	}
+}
+
+.resume-chapter {
+	border-top: 1px solid $color-gray-light;
+	padding: 40px 50px;
+
+	h2 {
+		color: $color-secondary;
+		font-size: 18px;
+		font-weight: 300;
+		margin: 0px;
+		padding: 0px;
+	}
+}
+
+.resume-chapter-inner {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+
+.resume-chapter-title, .resume-chapter-content {
+	display: table-cell;
+	vertical-align: top;
+
+	@media (max-width: $screen-xs-max) {
+		display: block;
+		margin: 0px 0px 20px 0px;
+	}
+}
+
+.resume-chapter-title {
+	width: 135px;
+
+	h2 {
+		margin-top: 5px;
+	}
+}
+
+.resume-chapter-content {
+	p {
+		&:last-child {
+			margin-bottom: 0px;
+		}
+	}
+
+	dl {
+		margin: 6px 0px 0px 0px;
+		padding: 0px;
+
+		dt {
+			color: $color-gray;
+			float: left;
+			font-weight: normal;
+			line-height: 1;
+			width: 135px;
+
+			@media (max-width: $screen-xs-max) {
+				width: 100px;
+			}
+		}
+
+		dd {
+			display: table-cell;
+			margin-left: 120px;
+
+			p {
+				margin-bottom: 30px !important;
+			}
+
+			&:last-child {
+				p {
+					margin-bottom: 0px !important;
+				}
+			}
+		}
+	}
+
+	ul {
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+
+		li {
+			padding: 8px 0px;
+
+			span {
+				color: $color-gray;
+				margin: 0px 0px 0px 5px;
+			}
+
+			&:before {
+				content: '\f10c';
+				color: $color-gray-medium;
+				font-family: 'FontAwesome';
+				font-size: 7px;
+				margin: 0px 10px 0px 0px;
+				vertical-align: 2px;
+			}
+		}
+	}
+
+	h3 {
+		color: $color-secondary;
+		font-size: 13px;
+		font-weight: 400;
+		line-height: 1;
+		margin: 0px 0px 30px 0px;
+		padding: 0px;
+	}
+
+	h4 {
+		color: $color-black;
+		font-size: 15px;
+		font-weight: 400;
+		line-height: 1;
+		margin: 8px 0px 20px 0px;
+		padding: 0px;
+	}
+}
+
+.resume-chapter-social {
+	display: block;
+	text-align: center;
+
+	.fa-facebook-square {
+		color: $color-facebook;
+	}
+
+	.fa-twitter-square {
+		color: $color-twitter;
+	}
+
+	.fa-linkedin-square {
+		color: $color-linkedin;
+	}
+
+	.fa-youtube-square {
+		color: $color-youtube;
+	}
+
+	@media (max-width: $screen-xs-max) {
+		margin: 0px 0px 20px 0px;
+		text-align: left;
+	}
+}
+
+.resume-chapter-social-icon {
+	font-size: 38px;
+	vertical-align: middle;
+}
+
+.resume-chapter-social-value {
+	color: $color-gray;
+	font-size: 15px;
+	margin: 0px 0px 0px 20px;
+	vertical-align: middle;
+}
