@@ -1,4 +1,4 @@
-$icon-font-path: '../../assets/libraries/bootstrap-sass/fonts/bootstrap/';
+$icon-font-path: '../fonts/';
 
 /*------------------------------------------------------------------
 
@@ -37,27 +37,27 @@ $icon-font-path: '../../assets/libraries/bootstrap-sass/fonts/bootstrap/';
 /*------------------------------------------------------------------
 [ 1. Bootstrap Library ]
 */
-@import '../libraries/bootstrap-sass/stylesheets/bootstrap';
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/variables";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/mixins";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/normalize";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/print";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/glyphicons";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/scaffolding";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/type";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/code";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/grid";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/tables";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/forms";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/buttons";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/component-animations";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/dropdowns";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/button-groups";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/input-groups";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/navs";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/breadcrumbs";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/pagination";
-@import "../libraries/bootstrap-sass/stylesheets/bootstrap/utilities";
+@import '../bootstrap-sass/bootstrap';
+@import "../bootstrap-sass/bootstrap/variables";
+@import "../bootstrap-sass/bootstrap/mixins";
+@import "../bootstrap-sass/bootstrap/normalize";
+@import "../bootstrap-sass/bootstrap/print";
+@import "../bootstrap-sass/bootstrap/glyphicons";
+@import "../bootstrap-sass/bootstrap/scaffolding";
+@import "../bootstrap-sass/bootstrap/type";
+@import "../bootstrap-sass/bootstrap/code";
+@import "../bootstrap-sass/bootstrap/grid";
+@import "../bootstrap-sass/bootstrap/tables";
+@import "../bootstrap-sass/bootstrap/forms";
+@import "../bootstrap-sass/bootstrap/buttons";
+@import "../bootstrap-sass/bootstrap/component-animations";
+@import "../bootstrap-sass/bootstrap/dropdowns";
+@import "../bootstrap-sass/bootstrap/button-groups";
+@import "../bootstrap-sass/bootstrap/input-groups";
+@import "../bootstrap-sass/bootstrap/navs";
+@import "../bootstrap-sass/bootstrap/breadcrumbs";
+@import "../bootstrap-sass/bootstrap/pagination";
+@import "../bootstrap-sass/bootstrap/utilities";
 
 @media (min-width: $screen-lg-min) {
     .container {
@@ -65,7 +65,7 @@ $icon-font-path: '../../assets/libraries/bootstrap-sass/fonts/bootstrap/';
     }
 }
 
-@import '../libraries/bootstrap-sass/stylesheets/bootstrap';
+@import '../bootstrap-sass/bootstrap';
 
 /*------------------------------------------------------------------
 [ 2. Elements ]

@@ -16,6 +16,7 @@
     "react-router-dom": "^4.3.1"
   },
   "scripts": {
+    "build-css": "sass src/scss/profession-black-green.scss src/css/App.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
