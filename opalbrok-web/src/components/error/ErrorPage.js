@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class ErrorPage extends Component {
+class ErrorPage extends React.Component {
     render() {
         return (
             <div className="main-wrapper">

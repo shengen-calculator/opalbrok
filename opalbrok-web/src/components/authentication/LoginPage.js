@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import * as authenticationAction from '../../actions/authenticationActions';
 import {bindActionCreators} from 'redux';
 
-class LoginPage extends Component {
+class LoginPage extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -55,7 +55,7 @@ class LoginPage extends Component {
                         </div>
                         <div className="container">
                             <div className="row">
-                                <div className="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                                <div className="col-md-4 col-md-offset-4">
                                     <form method="get" action="?">
                                         <div className={emailClassName}>
                                             <label htmlFor="form-login-username">Username</label>

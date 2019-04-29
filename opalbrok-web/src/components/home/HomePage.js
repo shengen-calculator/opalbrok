@@ -44,13 +44,6 @@ class HomePage extends Component {
 
     render() {
         return (
-            /* <div>
-                 <h1>Home Page</h1>
-
-                 <input type="file" onChange={this.updatePathToFile}/>
-                 <button onClick={this.load}>Load File</button>
-                 <button onClick={this.logout}>Log Out</button>
-             </div>*/
             <div className="main-wrapper">
                 <div className="main">
                     <div className="document-title">
@@ -60,16 +53,16 @@ class HomePage extends Component {
                     </div>
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                            <div className="col-md-8 col-md-offset-2">
                                 <form>
 
                                     <UploadFile fileName='pofigname.xlsx'/>
 
-                                    {(1 === 2) && <MissedPositions quantity={25}/>}
+                                    {(1 !== 2) && <MissedPositions quantity={25}/>}
 
-                                    {(3 === 4) && <InvoiceInfo price={210} netto={315}/>}
+                                    {(3 !== 4) && <InvoiceInfo price={210} netto={315}/>}
 
-                                    {(5 === 6) && <Results/>}
+                                    {(5 !== 6) && <Results/>}
 
                                 </form>
                             </div>

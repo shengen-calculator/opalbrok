@@ -12,8 +12,8 @@ const MissedPositions = ({quantity}) => (
             </div>
         </div>
         <p>
-            <a href="#fignam" className="btn btn-block btn-success">
-                <i className="fa fa-download"/>Download 3</a>
+            <a href="#fignam" className="btn btn-block btn-primary">
+                <i className="fa fa-download"/>Download Missed Positions</a>
         </p>
     </div>
 );
