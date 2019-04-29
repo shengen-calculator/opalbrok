@@ -32,7 +32,9 @@ class HomePage extends React.Component {
 
     fileOnSelect(event) {
         event.preventDefault();
-        return this.setState({fileUpload: event.target.files[0]});
+        if(event.target.files.length > 0)
+            this.setState({fileUpload: event.target.files[0]});
+
     }
     fileOnUpload(event) {
         event.preventDefault();

@@ -15,21 +15,19 @@ const UploadFile = ({file, uploading, onChange, onLoad}) => (
                     </div>
 
                     <div className="input-group-btn">
-                        <div className="btn btn-primary btn-file">Browse<input
-                            type="file" name="form-register-photo" onChange={onChange}
-                            id="form-register-photo"/></div>
+                        <div className={uploading ? 'btn btn-primary btn-file disabled' : 'btn btn-primary btn-file'}>Browse<input
+                            type="file" name="form-register-photo"
+                            onChange={onChange}
+                            disabled={uploading}/></div>
                     </div>
                 </div>
             </div>
         </div>
 
         <p>
-            {(file !== null && !uploading) &&
-            <a href="#upload" className="btn btn-block btn-default" onClick={onLoad}>Load file</a>}
-        </p>
-        <p>
-            {(uploading) &&
-            <a href="#upload" className="btn btn-block btn-default" disabled onClick={onLoad}>Loading...</a>}
+            {(file !== null)&&
+            <a href="#upload" className="btn btn-block btn-default"
+               onClick={onLoad} disabled={uploading}>{uploading ? 'Loading' : 'Load file'}</a>}
         </p>
     </div>
 );
