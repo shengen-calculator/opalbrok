@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import * as authenticationAction from '../../actions/authenticationActions';
+import * as uploadAction from '../../actions/uploadActions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -7,42 +8,48 @@ import UploadFile from './UploadFile';
 import MissedPositions from './MissedPositions';
 import InvoiceInfo from './InvoiceInfo';
 import Results from './Results';
-import {storage} from '../../api/database';
 import history from '../common/history';
+import * as utils from '../../utils/fileNameService';
 
-class HomePage extends Component {
+class HomePage extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            fileUpload: null
+        };
 
         this.logout = this.logout.bind(this);
-        this.updatePathToFile = this.updatePathToFile.bind(this);
-        this.load = this.load.bind(this);
+        this.fileOnSelect = this.fileOnSelect.bind(this);
+        this.fileOnUpload = this.fileOnUpload.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+        if(this.props.upload.isLoading && !nextProps.upload.isLoading) {
+            //const isCatalog = utils.isCatalog(this.state.fileUpload.name);
+            this.setState({fileUpload: null})
+        }
     }
 
-    updatePathToFile(event) {
-        return this.setState({path: event.target.files[0]});
+
+    fileOnSelect(event) {
+        event.preventDefault();
+        return this.setState({fileUpload: event.target.files[0]});
+    }
+    fileOnUpload(event) {
+        event.preventDefault();
+        this.props.uploadActions.fileUploadRequest({
+            filePath: utils.getPath(this.state.fileUpload.name, this.props.auth.email),
+            file: this.state.fileUpload
+        });
     }
 
     logout() {
-        this.props.actions.logoutRequest();
+        this.props.authActions.logoutRequest();
         history.push('/');
     }
 
-    load() {
-        const position = this.props.auth.email.indexOf('@');
-        const storageRef = storage.ref(
-            `/InBox/${this.props.auth.email.substr(0, position)}_${this.state.path.name}`);
-        storageRef.put(this.state.path)
-            .then(function (snapshot) {
-                const news = snapshot;
-                return news;
-            })
-            .catch((e) => {
-                history.push(`/error/${e.message}`);
-            });
-    }
 
     render() {
+        const uploading = this.props.upload.isLoading;
         return (
             <div className="main-wrapper">
                 <div className="main">
@@ -56,13 +63,17 @@ class HomePage extends Component {
                             <div className="col-md-8 col-md-offset-2">
                                 <form>
 
-                                    <UploadFile fileName='pofigname.xlsx'/>
+                                    <UploadFile file={this.state.fileUpload}
+                                                onChange={this.fileOnSelect}
+                                                onLoad={this.fileOnUpload}
+                                                uploading={uploading}
+                                    />
 
-                                    {(1 !== 2) && <MissedPositions quantity={25}/>}
+                                    {(1 === 2) && <MissedPositions quantity={25}/>}
 
-                                    {(3 !== 4) && <InvoiceInfo price={210} netto={315}/>}
+                                    {(3 === 4) && <InvoiceInfo price={210} netto={315}/>}
 
-                                    {(5 !== 6) && <Results/>}
+                                    {(5 === 6) && <Results/>}
 
                                 </form>
                             </div>
@@ -77,13 +88,15 @@ class HomePage extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        auth: state.authentication
+        auth: state.authentication,
+        upload: state.fileUpload
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(authenticationAction, dispatch)
+        authActions: bindActionCreators(authenticationAction, dispatch),
+        uploadActions: bindActionCreators(uploadAction, dispatch)
     };
 }
 

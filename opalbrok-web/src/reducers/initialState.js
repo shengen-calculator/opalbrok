@@ -5,5 +5,9 @@ export default {
         errors: '',
         logging: false,
         outing: false
+    },
+    fileUpload: {
+        fileName: '',
+        isLoading: false
     }
 };
