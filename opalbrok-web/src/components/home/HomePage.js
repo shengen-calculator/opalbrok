@@ -11,6 +11,7 @@ import Results from './Results';
 import history from '../common/history';
 import * as utils from '../../utils/fileNameService';
 
+
 class HomePage extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -24,11 +25,15 @@ class HomePage extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         if(this.props.upload.isLoading && !nextProps.upload.isLoading) {
-            //const isCatalog = utils.isCatalog(this.state.fileUpload.name);
-            this.setState({fileUpload: null})
+            const isCatalog = utils.isCatalog(this.state.fileUpload.name);
+            this.setState({fileUpload: null});
+            this.startHandling(isCatalog);
         }
     }
 
+    startHandling(isCatalog) {
+
+    }
 
     fileOnSelect(event) {
         event.preventDefault();
