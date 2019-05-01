@@ -15,7 +15,7 @@ const THUMB_PREFIX = 'thumb_';
 
 admin.initializeApp();
 
-exports.generateResults = functions.https.onRequest(async (req, res) => {
+exports.generateResultsTest = functions.https.onRequest(async (req, res) => {
 //exports.generateThumbnail = functions.storage.object().onFinalize(async (object) => {
     // File and directory paths.
     const filePath = req.query.text;
@@ -84,6 +84,15 @@ exports.generateResults = functions.https.onRequest(async (req, res) => {
     //return console.log('Thumbnail URLs saved to database.');
 });
 
+exports.generateResults = functions.https.onCall(async (data, context) => {
+    if (!context.auth) {
+        throw new functions.https.HttpsError('failed-precondition', 'The function must be called while authenticated.');
+    }
+    return {
+        urlOne: 'www.google.com.ua',
+        urlTwo: 'www.yahoo.com'
+    };
+});
 
 exports.calculateInvoice = functions.https.onCall(async (data, context) => {
     if (!context.auth) {
@@ -92,7 +101,8 @@ exports.calculateInvoice = functions.https.onCall(async (data, context) => {
     return {
         total: 245.18,
         netto: 390,
-        missedPositions: 0
+        missedPositions: 0,
+        url: ''
     };
 });
 
