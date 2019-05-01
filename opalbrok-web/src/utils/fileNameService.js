@@ -10,5 +10,5 @@ export function getPath(fileName, email) {
 }
 
 export function isCatalog(fileName) {
-    return fileName.indexOf('cat') > -1;
+    return fileName.toLowerCase().indexOf('cat') > -1;
 }

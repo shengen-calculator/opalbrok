@@ -4,20 +4,45 @@ import initialState from './initialState';
 export default function fileUploadReducer(state = initialState.fileUpload, action) {
     switch (action.type) {
 
-        case types.FILE_UPLOAD_REQUEST:
+        case types.CATALOG_UPLOAD_REQUEST:
             return {
                 ...state,
                 isLoading: true
             };
 
-        case types.FILE_UPLOAD_SUCCESS:
+        case types.CATALOG_UPLOAD_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 fileName: action.data.metadata.name
             };
 
-        case types.FILE_UPLOAD_FAILURE:
+        case types.CATALOG_UPLOAD_FAILURE:
+            return {
+                ...state,
+                isLoading: false
+            };
+
+        case types.INVOICE_UPLOAD_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            };
+
+        case types.INVOICE_UPLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                fileName: action.data.metadata.name
+            };
+
+        case types.INVOICE_UPLOAD_FAILURE:
+            return {
+                ...state,
+                isLoading: false
+            };
+
+        case types.AUTHENTICATION_SUCCESS:
             return {
                 ...state,
                 isLoading: false

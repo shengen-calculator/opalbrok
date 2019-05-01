@@ -43,10 +43,18 @@ class HomePage extends React.Component {
     }
     fileOnUpload(event) {
         event.preventDefault();
-        this.props.uploadActions.fileUploadRequest({
-            filePath: utils.getPath(this.state.fileUpload.name, this.props.auth.email),
-            file: this.state.fileUpload
-        });
+        const isCatalog = utils.isCatalog(this.state.fileUpload.name);
+        if(isCatalog) {
+            this.props.uploadActions.catalogUploadRequest({
+                filePath: utils.getPath(this.state.fileUpload.name, this.props.auth.email),
+                file: this.state.fileUpload
+            });
+        } else {
+            this.props.uploadActions.invoiceUploadRequest({
+                filePath: utils.getPath(this.state.fileUpload.name, this.props.auth.email),
+                file: this.state.fileUpload
+            });
+        }
     }
 
     logout() {

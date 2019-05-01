@@ -9,5 +9,7 @@ export default {
     fileUpload: {
         fileName: '',
         isLoading: false
-    }
+    },
+    invoice: {},
+    catalog: {}
 };
