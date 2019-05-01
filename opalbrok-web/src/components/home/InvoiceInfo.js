@@ -26,7 +26,7 @@ const InvoiceInfo = ({
                 <div className={colli === '' ? 'form-group has-error' : 'form-group'}>
                     <label>Colli</label>
                     <input type="text" onChange={onColliUpdated} className="form-control"
-                           value={colli}/>
+                           value={colli} disabled={isGenerating}/>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@ const InvoiceInfo = ({
                 <div className={brutto === '' ? 'form-group has-error' : 'form-group'}>
                     <label>Brutto, kg</label>
                     <input type="text" onChange={onBruttoUpdated} className="form-control"
-                           value={brutto}/>
+                           value={brutto} disabled={isGenerating}/>
                 </div>
             </div>
 

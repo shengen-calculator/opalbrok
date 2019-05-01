@@ -170,7 +170,7 @@ class HomePage extends React.Component {
                                     <UploadFile file={this.state.fileUpload}
                                                 onChange={this.fileOnSelect}
                                                 onLoad={this.fileOnUpload}
-                                                isWorking={isWorking}
+                                                isWorking={isWorking || this.props.invoice.isGenereting}
                                                 status={status}
                                     />
 
