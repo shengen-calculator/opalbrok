@@ -10,6 +10,19 @@ export default {
         fileName: '',
         isLoading: false
     },
-    invoice: {},
-    catalog: {}
+    invoice: {
+        isCalculating: false,
+        missedPositions:0,
+        missedPositionsUrl: '',
+        netto: 0,
+        total: 0,
+        colli: '',
+        brutto: '',
+        isGenereting: false,
+        urlOne:'',
+        urlTwo: ''
+    },
+    catalog: {
+        isInserting: false
+    }
 };

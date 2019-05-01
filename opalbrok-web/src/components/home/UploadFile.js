@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../css/fileinput.min.css';
 
-const UploadFile = ({file, uploading, onChange, onLoad}) => (
+const UploadFile = ({file, onLoad, onChange, isWorking, status}) => (
     <div>
         <div className="form-group">
             <div className="file-input file-input-ajax-new">
@@ -15,10 +15,10 @@ const UploadFile = ({file, uploading, onChange, onLoad}) => (
                     </div>
 
                     <div className="input-group-btn">
-                        <div className={uploading ? 'btn btn-primary btn-file disabled' : 'btn btn-primary btn-file'}>Browse<input
+                        <div className={isWorking ? 'btn btn-primary btn-file disabled' : 'btn btn-primary btn-file'}>Browse<input
                             type="file" name="form-register-photo"
                             onChange={onChange}
-                            disabled={uploading}/></div>
+                            disabled={isWorking}/></div>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@ const UploadFile = ({file, uploading, onChange, onLoad}) => (
         <p>
             {(file !== null)&&
             <a href="#upload" className="btn btn-block btn-default"
-               onClick={onLoad} disabled={uploading}>{uploading ? 'Loading' : 'Load file'}</a>}
+               onClick={onLoad} disabled={isWorking}>{isWorking ? status : 'Load file'}</a>}
         </p>
     </div>
 );

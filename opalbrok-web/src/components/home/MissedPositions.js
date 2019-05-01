@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MissedPositions = ({quantity}) => (
+const MissedPositions = ({quantity, url}) => (
     <div>
         <div className="row">
             <div className="col-sm-12">
@@ -12,7 +12,7 @@ const MissedPositions = ({quantity}) => (
             </div>
         </div>
         <p>
-            <a href="#fignam" className="btn btn-block btn-primary">
+            <a href={url} className="btn btn-block btn-primary" download="catalog.xls" >
                 <i className="fa fa-download"/>Download Missed Positions</a>
         </p>
     </div>

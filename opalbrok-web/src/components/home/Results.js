@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Results = () => (
+const Results = ({urlOne, urlTwo}) => (
     <div className="row">
         <div className="col-md-6">
             <p>
-                <a href="#fignam" className="btn btn-block btn-primary">
+                <a href={urlOne} className="btn btn-block btn-primary">
                     <i className="fa fa-download"/>
                     Download 1
                 </a>
@@ -12,7 +12,7 @@ const Results = () => (
         </div>
         <div className="col-md-6">
             <p>
-                <a href="#fignam" className="btn btn-block btn-secondary">
+                <a href={urlTwo} className="btn btn-block btn-secondary">
                     <i className="fa fa-download"/>
                     Download 2
                 </a>

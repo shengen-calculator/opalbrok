@@ -6,32 +6,58 @@ export default function invoiceReducer(state = initialState.invoice, action) {
 
         case types.INVOICE_GENERATE_RESULT_REQUEST:
             return {
-                ...state
+                ...state,
+                isGenereting: true,
+                colli: action.params.colli,
+                brutto: action.params.brutto,
+                urlOne: '',
+                urlTwo: ''
             };
 
         case types.INVOICE_GENERATE_RESULT_SUCCESS:
             return {
-                ...state
+                ...state,
+                isGenereting: false,
+                urlOne: action.data.urlOne,
+                urlTwo: action.data.urlTwo
             };
 
         case types.INVOICE_GENERATE_RESULT_FAILURE:
             return {
-                ...state
+                ...state,
+                isGenereting: false,
+                colli:'',
+                brutto:''
             };
 
         case types.INVOICE_CALCULATE_REQUEST:
             return {
-                ...state
+                ...state,
+                isCalculating: true,
+                urlOne: '',
+                urlTwo: '',
+                colli:'',
+                brutto:''
             };
 
         case types.INVOICE_CALCULATE_SUCCESS:
             return {
-                ...state
+                ...state,
+                isCalculating: false,
+                missedPositions: action.data.missedPositions,
+                missedPositionsUrl: action.data.url,
+                netto: action.data.netto,
+                total: action.data.total
             };
 
         case types.INVOICE_CALCULATE_FAILURE:
             return {
-                ...state
+                ...state,
+                isCalculating: false,
+                missedPositions: 0,
+                missedPositionsUrl: '',
+                netto: 0,
+                total: 0
             };
 
         default:
