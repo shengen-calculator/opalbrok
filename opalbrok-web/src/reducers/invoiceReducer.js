@@ -34,10 +34,25 @@ export default function invoiceReducer(state = initialState.invoice, action) {
             return {
                 ...state,
                 isCalculating: true,
+                fileName: action.params,
                 urlOne: '',
                 urlTwo: '',
                 colli:'',
                 brutto:''
+            };
+
+        case types.CATALOG_INSERT_REQUEST:
+            return {
+                ...state,
+                urlOne: '',
+                urlTwo: '',
+            };
+
+        case types.AUTHENTICATION_SUCCESS:
+            return {
+                ...state,
+                isCalculating: false,
+                isGenereting: false
             };
 
         case types.INVOICE_CALCULATE_SUCCESS:

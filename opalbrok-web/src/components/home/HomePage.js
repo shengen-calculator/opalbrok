@@ -38,7 +38,8 @@ class HomePage extends React.Component {
                 isShowMissedPositions: true
             });
         } else {
-            if(this.props.invoice.urlTwo && this.props.invoice.urlOne) {
+            if ((this.props.invoice.urlTwo && this.props.invoice.urlOne) ||
+                (this.props.invoice.netto && this.props.invoice.total)) {
                 this.setState({
                     colli: this.props.invoice.colli,
                     brutto: this.props.invoice.brutto,
@@ -49,16 +50,20 @@ class HomePage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const isWorking = this.props.upload.isLoading || this.props.invoice.isCalculating;
-        const willStop = !nextProps.upload.isLoading && !nextProps.upload.isLoading;
+        const isWorking = this.props.upload.isLoading ||
+            this.props.invoice.isCalculating || this.props.catalog.isInserting;
+        const willStop = !nextProps.upload.isLoading &&
+            !nextProps.invoice.isCalculating && !nextProps.catalog.isInserting;
 
         if (isWorking && willStop) {
             if (this.props.upload.isLoading) {
                 const isCatalog = utils.isCatalog(this.state.fileUpload.name);
                 if (isCatalog) {
-                    this.props.funcActions.catalogInsertRequest(this.state.fileUpload);
+                    this.props.funcActions.catalogInsertRequest(
+                        utils.getName(this.state.fileUpload.name, this.props.auth.email));
                 } else {
-                    this.props.funcActions.calculateInvoiceRequest(this.state.fileUpload);
+                    this.props.funcActions.calculateInvoiceRequest(
+                        utils.getName(this.state.fileUpload.name, this.props.auth.email));
                 }
             }
             if (this.props.invoice.isCalculating) {
@@ -68,6 +73,15 @@ class HomePage extends React.Component {
                     this.setState({fileUpload: null, isShowInvoiceInfo: true});
                 }
 
+            }
+            if (this.props.catalog.isInserting) {
+
+                if(this.props.invoice.fileName) {
+                    this.props.funcActions.calculateInvoiceRequest(
+                        this.props.invoice.fileName);
+                } else {
+                    this.setState({fileUpload: null});
+                }
             }
 
         }
@@ -82,8 +96,8 @@ class HomePage extends React.Component {
                 fileUpload: event.target.files[0],
                 isShowInvoiceInfo: false,
                 isShowMissedPositions: false,
-                colli:'',
-                brutto:''
+                colli: '',
+                brutto: ''
             });
 
     }
@@ -143,15 +157,18 @@ class HomePage extends React.Component {
 
 
     render() {
-        const isWorking = this.props.upload.isLoading || this.props.invoice.isCalculating;
+        const isWorking = this.props.upload.isLoading ||
+            this.props.invoice.isCalculating || this.props.catalog.isInserting;
         let status;
         if (this.props.upload.isLoading)
             status = 'Uploading ...';
         if (this.props.invoice.isCalculating)
             status = 'Calculating ...';
+        if (this.props.catalog.isInserting)
+            status = 'Inserting ...';
 
         let isShowResults = false;
-        if(this.props.invoice.urlOne && this.props.invoice.urlTwo && !this.state.fileUpload)
+        if (this.props.invoice.urlOne && this.props.invoice.urlTwo && !this.state.fileUpload)
             isShowResults = true;
 
         return (
@@ -207,7 +224,8 @@ function mapStateToProps(state, ownProps) {
     return {
         auth: state.authentication,
         upload: state.fileUpload,
-        invoice: state.invoice
+        invoice: state.invoice,
+        catalog: state.catalog
     };
 }
 

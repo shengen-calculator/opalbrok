@@ -6,17 +6,20 @@ export default function catalogReducer(state = initialState.catalog, action) {
 
         case types.CATALOG_INSERT_REQUEST:
             return {
-                ...state
+                ...state,
+                isInserting: true
             };
 
         case types.CATALOG_INSERT_SUCCESS:
             return {
-                ...state
+                ...state,
+                isInserting: false
             };
 
         case types.CATALOG_INSERT_FAILURE:
             return {
-                ...state
+                ...state,
+                isInserting: false
             };
 
         default:

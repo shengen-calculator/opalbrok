@@ -20,9 +20,11 @@ export default {
         brutto: '',
         isGenereting: false,
         urlOne:'',
-        urlTwo: ''
+        urlTwo: '',
+        fileName: ''
     },
     catalog: {
-        isInserting: false
+        isInserting: false,
+        fileName: ''
     }
 };
