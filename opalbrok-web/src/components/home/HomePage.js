@@ -67,7 +67,7 @@ class HomePage extends React.Component {
                 }
             }
             if (this.props.invoice.isCalculating) {
-                if (this.props.invoice.missedPositions > 0) {
+                if (nextProps.invoice.missedPositions > 0) {
                     this.setState({fileUpload: null, isShowMissedPositions: true});
                 } else {
                     this.setState({fileUpload: null, isShowInvoiceInfo: true});
