@@ -12,7 +12,7 @@ const MissedPositions = ({quantity, url}) => (
             </div>
         </div>
         <p>
-            <a href={url} className="btn btn-block btn-primary" download="catalog.xls" >
+            <a href={url} className="btn btn-block btn-primary" >
                 <i className="fa fa-download"/>Download Missed Positions</a>
         </p>
     </div>
