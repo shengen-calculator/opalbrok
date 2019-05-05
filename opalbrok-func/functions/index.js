@@ -7,6 +7,7 @@ const spawn = require('child-process-promise').spawn;
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
+const excel = require('exceljs');
 // Max height and width of the thumbnail in pixels.
 const THUMB_MAX_HEIGHT = 1024;
 const THUMB_MAX_WIDTH = 1024;
@@ -95,14 +96,62 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
 });
 
 exports.calculateInvoice = functions.https.onCall(async (data, context) => {
+
     if (!context.auth) {
         throw new functions.https.HttpsError('failed-precondition', 'The function must be called while authenticated.');
     }
+
+    const catalogFileName = "catalog.xlsx";
+    const catalogFilePath = `/OutBox/${catalogFileName}`;
+    const tempLocalCatalogFile = path.join(os.tmpdir(), catalogFileName);
+    const contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    const metadata = {
+        contentType: contentType,
+        contentDisposition: `filename="${catalogFileName}"`
+    };
+
+    const workbook = new excel.Workbook();
+    // create new sheet with pageSetup settings for A4 - landscape
+    const worksheet =  workbook.addWorksheet('sheet1', {
+        pageSetup:{paperSize: 9, orientation:'landscape'}
+    });
+    worksheet.columns = [
+        { header: 'Id', key: 'id', width: 10 },
+        { header: 'Name', key: 'name', width: 32 },
+        { header: 'D.O.B.', key: 'dob', width: 10, outlineLevel: 1 }
+    ];
+
+    // Add a couple of Rows by key-value, after the last current row, using the column keys
+    worksheet.addRow({id: 1, name: 'John Doe', dob: new Date(1970,1,1)});
+    worksheet.addRow({id: 2, name: 'Doe John', dob: new Date(1965,1,7)});
+
+    const rowValues = [];
+    rowValues[1] = 4;
+    rowValues[2] = 'Kyle';
+    rowValues[3] = new Date();
+    worksheet.addRow(rowValues);
+
+    await workbook.xlsx.writeFile(tempLocalCatalogFile);
+
+    const bucket = admin.storage().bucket('broker-d9a50.appspot.com');
+    await bucket.upload(tempLocalCatalogFile, {destination: catalogFilePath, metadata: metadata});
+
+    // Once the image has been uploaded delete the local files to free up disk space.
+    fs.unlinkSync(tempLocalCatalogFile);
+    // Get the Signed URLs
+    const config = {
+        action: 'read',
+        expires: '03-01-2500',
+    };
+    const catalogFile = bucket.file(catalogFilePath);
+    const signedUrl = await catalogFile.getSignedUrl(config);
+
+
     return {
         total: 245.18,
         netto: 390,
-        missedPositions: 0,
-        url: ''
+        missedPositions: 2,
+        url: `${signedUrl[0]}`
     };
 });
 
