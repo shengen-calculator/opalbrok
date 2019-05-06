@@ -1,5 +1,4 @@
 'use strict';
-
 const functions = require('firebase-functions');
 const mkdirp = require('mkdirp-promise');
 const admin = require('firebase-admin');
@@ -160,4 +159,53 @@ exports.addProducts = functions.https.onCall(async (data, context) => {
         throw new functions.https.HttpsError('failed-precondition', 'The function must be called while authenticated.');
     }
     return {inserted: 20};
+});
+
+exports.importCatalog = functions.https.onRequest(async (req, res) => {
+    const filePath = '/InBox/catalog.xlsx';
+    const bucket = admin.storage().bucket('broker-d9a50.appspot.com');
+    const tempLocalFile = path.join(os.tmpdir(), filePath);
+    const tempLocalDir = path.dirname(tempLocalFile);
+
+    await mkdirp(tempLocalDir);
+// Download file from bucket.
+
+    const file = bucket.file(filePath);
+
+    await file.download({destination: tempLocalFile});
+
+    const workbook = new excel.Workbook();
+    await workbook.xlsx.readFile(tempLocalFile);
+
+    const promises = [];
+
+    workbook.eachSheet((worksheet, sheetId) => {
+        worksheet.eachRow((row, number) => {
+            const item = row.values[1];
+            const description = row.values[2];
+            const descriptionUa = row.values[3];
+            const oumU = row.values[4];
+            const oumH = row.values[5];
+            const oumT = row.values[6];
+            const uktz = row.values[7];
+            const g31 = row.values[8];
+            promises.push(admin.firestore().collection('products').doc(item.replace('/','#')).set({
+                item,
+                description,
+                descriptionUa,
+                oumU,
+                oumH,
+                oumT,
+                uktz,
+                g31
+            }));
+        });
+
+    });
+    await Promise.all(promises);
+
+    fs.unlinkSync(tempLocalFile);
+
+    res.status(200).send({status: 'Ok'});
+
 });
