@@ -3,7 +3,7 @@
 service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
-      allow read, write: if request.auth != null && request.resource.size < 2 * 1024 * 1024 && request.resource.contentType.matches('image/.*');
+      allow read, write: if request.auth != null && request.resource.size < 2 * 1024 * 1024 && request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     }
   }
 }
