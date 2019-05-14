@@ -57,7 +57,7 @@ exports.calculateInvoice = functions.https.onCall(async (data, context) => {
     workbook.eachSheet((worksheet) => {
         worksheet.eachRow((row, number) => {
             if(number > 1) {
-                const item = row.values[2];
+                const item = row.values[2].toString();
                 const totalPrice = row.values[8];
                 const weight = row.values[9];
 
@@ -180,7 +180,7 @@ exports.addProducts = functions.https.onCall(async (data, context) => {
     workbook.eachSheet((worksheet) => {
         worksheet.eachRow((row, number) => {
             if(number > 1) {
-                const item = row.values[4];
+                const item = row.values[4].toString();
                 const description = row.values[1];
                 const descriptionUa = row.values[2];
                 const oumU = row.values[7];
