@@ -113,7 +113,6 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
     });
 
     resultEWorksheet.columns = [
-        { header: 'UKTZ', key: 'uktz', width: 18 },
         { header: 'Товар', key: 'tovar', width: 5 },
         { header: 'Поз', key: 'poz', width: 5},
         { header: 'Description_UA', key: 'description', width: 52},
@@ -153,19 +152,18 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
         country = x.Country;
 
         const rowValues = [];
-        rowValues[1] = x.Uktz;
-        rowValues[2] = t;
-        rowValues[3] = p;
-        rowValues[4] = x.DescriptionUa;
-        rowValues[5] = x.Item;
-        rowValues[6] = x.Price;
-        rowValues[7] = x.TotalPrice;
+        rowValues[1] = t;
+        rowValues[2] = p;
+        rowValues[3] = x.DescriptionUa;
+        rowValues[4] = x.Item;
+        rowValues[5] = x.Price;
+        rowValues[6] = x.TotalPrice;
 
-        rowValues[10] = x.Quantity;
-        rowValues[11] = x.OumT;
+        rowValues[9] = x.Quantity;
+        rowValues[10] = x.OumT;
+        rowValues[11] = 'нема даних';
         rowValues[12] = 'нема даних';
-        rowValues[13] = 'нема даних';
-        rowValues[14] = x.Country;
+        rowValues[13] = x.Country;
         resultEWorksheet.addRow(rowValues);
 
 
