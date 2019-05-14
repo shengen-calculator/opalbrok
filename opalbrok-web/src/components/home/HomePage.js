@@ -145,7 +145,8 @@ class HomePage extends React.Component {
                 colli: this.state.colli,
                 brutto: this.state.brutto,
                 netto: this.props.invoice.netto,
-                total: this.props.invoice.total
+                total: this.props.invoice.total,
+                fileName: this.props.invoice.fileName
             });
         }
     }
