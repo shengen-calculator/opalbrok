@@ -74,7 +74,7 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
         if(row){
             resultItems.push({
                 Uktz: row.uktz,
-                DescriptionUa: row.descriptionUa,
+                DescriptionUa: row.descriptionUa.trimRight(),
                 Item: row.item,
                 Price: inv.price,
                 TotalPrice: inv.totalPrice,
@@ -90,7 +90,8 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
     resultItems.sort((a, b) =>
         (a.Uktz > b.Uktz) ? 1 : (a.Uktz === b.Uktz) ?
             ((a.Country > b.Country) ? 1 : (a.Country === b.Country ?
-                ((a.Item > b.Item) ? 1 : -1 ) : -1)): -1);
+                ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 : (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
+                    (a.Item > b.Item ? 1 : -1) : -1)) : -1)): -1);
 
     // generate result E
 
