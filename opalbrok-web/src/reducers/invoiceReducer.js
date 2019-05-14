@@ -11,7 +11,8 @@ export default function invoiceReducer(state = initialState.invoice, action) {
                 colli: action.params.colli,
                 brutto: action.params.brutto,
                 urlOne: '',
-                urlTwo: ''
+                urlTwo: '',
+                fileName: action.params.fileName
             };
 
         case types.INVOICE_GENERATE_RESULT_SUCCESS:
