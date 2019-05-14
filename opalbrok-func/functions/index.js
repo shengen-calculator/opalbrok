@@ -15,8 +15,179 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
     if (!context.auth) {
         throw new functions.https.HttpsError('failed-precondition', 'The function must be called while authenticated.');
     }
+
+    if (!data.fileName) {
+        throw new functions.https.HttpsError('invalid-argument',
+            'The function must be called with one argument "file Name"');
+    }
+    const filePath = `/InBox/${data.fileName}`;
+    const bucket = admin.storage().bucket('broker-d9a50.appspot.com');
+    const tempLocalFile = path.join(os.tmpdir(), filePath);
+    const tempLocalDir = path.dirname(tempLocalFile);
+    await mkdirp(tempLocalDir);
+    const file = bucket.file(filePath);
+
+    await file.download({destination: tempLocalFile});
+
+    const workbook = new excel.Workbook();
+    await workbook.xlsx.readFile(tempLocalFile);
+
+
+    const promises = [];
+    const resultItems =[];
+    const invoiceItems = [];
+
+    workbook.eachSheet((worksheet) => {
+        worksheet.eachRow((row, number) => {
+            if(number > 1) {
+                const item = row.values[2].toString();
+                const quantity = row.values[6];
+                const price = row.values[7];
+                const totalPrice = row.values[8];
+                const country = row.values[11];
+
+                if(item) {
+                    promises.push(
+                        admin.firestore().collection('products').doc(item.replace('/','#')).get()
+                    );
+
+                    invoiceItems.push({
+                        item,
+                        quantity,
+                        price,
+                        totalPrice,
+                        country
+                    });
+
+                }
+            }
+
+        });
+    });
+
+    const snapshots = await Promise.all(promises);
+
+    snapshots.forEach(querySnapshot => {
+
+        const row = querySnapshot.data();
+        const inv = invoiceItems.find(x => x.item === row.item);
+        if(row){
+            resultItems.push({
+                Uktz: row.uktz,
+                DescriptionUa: row.descriptionUa,
+                Item: row.item,
+                Price: inv.price,
+                TotalPrice: inv.totalPrice,
+                Quantity: inv.quantity,
+                OumT: row.oumT,
+                Country: inv.country
+            });
+        }
+    });
+
+    fs.unlinkSync(tempLocalFile);
+
+    resultItems.sort((a, b) =>
+        (a.Uktz > b.Uktz) ? 1 : (a.Uktz === b.Uktz) ?
+            ((a.Country > b.Country) ? 1 : (a.Country === b.Country ?
+                ((a.Item > b.Item) ? 1 : -1 ) : -1)): -1);
+
+    // generate result E
+
+    const resultEFileName = "result_E.xlsx";
+    const resultEFilePath = `/OutBox/${resultEFileName}`;
+    const tempLocalResultEFile = path.join(os.tmpdir(), resultEFileName);
+    const contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    const metadata = {
+        contentType: contentType,
+        contentDisposition: `filename="${resultEFileName}"`
+    };
+
+    const reusltEWorkbook = new excel.Workbook();
+
+
+    // create new sheet with pageSetup settings for A4 - landscape
+    const resultEWorksheet =  reusltEWorkbook.addWorksheet('sheet1', {
+        pageSetup:{paperSize: 15, orientation:'landscape'}
+    });
+
+    resultEWorksheet.columns = [
+        { header: 'UKTZ', key: 'uktz', width: 18 },
+        { header: 'Товар', key: 'tovar', width: 5 },
+        { header: 'Поз', key: 'poz', width: 5},
+        { header: 'Description_UA', key: 'description', width: 52},
+        { header: 'Item', key: 'item', width: 18},
+        { header: 'Price', key: 'price', width: 10},
+        { header: 'Total_Price', key: 'tot_price', width: 10},
+        { header: 'Б', key: 'b', width: 2},
+        { header: 'Н', key: 'n', width: 2},
+        { header: 'Quantity', key: 'quantity', width: 10},
+        { header: 'OUM_T', key: 'oum', width: 10},
+        { header: 'TM', key: 'tm', width: 15},
+        { header: 'Выр', key: 'vir', width: 15},
+        { header: 'Country', key: 'country', width: 10}
+    ];
+
+    let t = 0;
+    let p = 0;
+    let country = '';
+    let uktz = '';
+
+    resultItems.forEach(x => {
+
+        if(uktz === x.Uktz) {
+            if(country === x.Country) {
+                p++;
+            } else {
+                t++;
+                p = 1;
+            }
+
+        } else {
+            t++;
+            p = 1;
+        }
+
+        uktz = x.Uktz;
+        country = x.Country;
+
+        const rowValues = [];
+        rowValues[1] = x.Uktz;
+        rowValues[2] = t;
+        rowValues[3] = p;
+        rowValues[4] = x.DescriptionUa;
+        rowValues[5] = x.Item;
+        rowValues[6] = x.Price;
+        rowValues[7] = x.TotalPrice;
+
+        rowValues[10] = x.Quantity;
+        rowValues[11] = x.OumT;
+        rowValues[12] = 'нема даних';
+        rowValues[13] = 'нема даних';
+        rowValues[14] = x.Country;
+        resultEWorksheet.addRow(rowValues);
+
+
+    });
+
+    await reusltEWorkbook.xlsx.writeFile(tempLocalResultEFile);
+
+    await bucket.upload(tempLocalResultEFile, {destination: resultEFilePath, metadata: metadata});
+
+    fs.unlinkSync(tempLocalResultEFile);
+
+    const config = {
+        action: 'read',
+        expires: '03-01-2500',
+    };
+    const reusltEFile = bucket.file(resultEFilePath);
+    const resultEUrl = await reusltEFile.getSignedUrl(config);
+
+
+
+
     return {
-        urlOne: 'www.google.com.ua',
+        urlOne: resultEUrl,
         urlTwo: 'www.yahoo.com'
     };
 });
