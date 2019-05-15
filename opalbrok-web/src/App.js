@@ -42,7 +42,7 @@ class App extends Component {
                                     </div>
 
                                     <ul className="header-actions nav nav-pills">
-                                        <li><a href="#logout" onClick={this.logout}>{auth.loggedIn ? 'Log Out' : 'Log In'}</a></li>
+                                        <li><a href="./" onClick={this.logout}>{auth.loggedIn ? 'Log Out' : 'Log In'}</a></li>
                                     </ul>
                                 </div>
                             </div>

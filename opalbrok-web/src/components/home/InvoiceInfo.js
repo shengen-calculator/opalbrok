@@ -40,9 +40,9 @@ const InvoiceInfo = ({
 
         </div>
         <p>
-            <a href="#fignam" onClick={onStart} disabled={isGenerating}
+            <button type="button" onClick={onStart} disabled={isGenerating}
                className="btn btn-block btn-secondary">
-                {isGenerating ? "Generating ..." : "Start"}</a>
+                {isGenerating ? "Generating ..." : "Start"}</button>
         </p>
     </div>
 );
