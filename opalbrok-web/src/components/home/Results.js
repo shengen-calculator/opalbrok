@@ -6,7 +6,7 @@ const Results = ({urlOne, urlTwo}) => (
             <p>
                 <a href={urlOne} className="btn btn-block btn-primary">
                     <i className="fa fa-download"/>
-                    Download 1
+                    E
                 </a>
             </p>
         </div>
@@ -14,7 +14,7 @@ const Results = ({urlOne, urlTwo}) => (
             <p>
                 <a href={urlTwo} className="btn btn-block btn-secondary">
                     <i className="fa fa-download"/>
-                    Download 2
+                    MD
                 </a>
             </p>
         </div>
