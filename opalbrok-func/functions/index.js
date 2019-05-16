@@ -149,10 +149,10 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
     });
 
     resultMdWorksheet.columns = [
-        { header: 'UKTZ', key: 'uktz', width: 28 },
+        { header: 'UKTZ', key: 'uktz', width: 16 },
         { header: 'G31', key: 'g31', width: 52},
         { header: 'Страна', key: 'country', width: 10},
-        { header: 'Места', key: 'place', width: 6},
+        { header: 'Места', key: 'colli', width: 6},
         { header: 'Кол', key: 'quantity', width: 14},
         { header: 'Бвес', key: 'b', width: 14},
         { header: 'Нвес', key: 'n', width: 14},
@@ -166,13 +166,20 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
     let totalQuntity = 0;
     let totalNetto = 0;
     let totalPrice = 0;
-    let country = '';
-    let uktz = '';
+    let maxWeight = 0;
+    let maxWeightRowIndex = 0;
+    let rowMdIndex = 1;
+    let grandTotalBrutto = 0;
+    let grandTotalColli = 0;
+    let oldRow = {
+        Uktz:'',
+        Country:''
+    };
 
     resultItems.forEach(x => {
 
-        if(uktz === x.Uktz) {
-            if(country === x.Country) {
+        if(oldRow.Uktz === x.Uktz) {
+            if(oldRow.Country === x.Country) {
                 p++;
                 totalQuntity += x.Quantity;
                 totalNetto += x.Netto;
@@ -182,46 +189,68 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
                 p = 1;
 
                 const rowMdValues = [];
-                rowMdValues[1] = x.Uktz;
-                rowMdValues[2] = x.G31;
-                rowMdValues[3] = x.Country;
-                rowMdValues[4] = Math.round(data.colli * x.Netto / data.netto);
+                rowMdValues[1] = oldRow.Uktz;
+                rowMdValues[2] = oldRow.G31;
+                rowMdValues[3] = oldRow.Country;
+                rowMdValues[4] = Math.round(data.colli * totalNetto / data.netto);
                 rowMdValues[5] = totalQuntity;
-                rowMdValues[6] = Math.round((x.Netto + (data.brutto - data.netto) * x.Netto / data.Netto)*1000)/1000;
+                rowMdValues[6] = Math.round(((data.brutto - data.netto) * totalNetto / data.netto + totalNetto)*1000)/1000;
                 rowMdValues[7] = totalNetto;
                 rowMdValues[8] = totalPrice;
 
                 resultMdWorksheet.addRow(rowMdValues);
+                rowMdIndex++;
 
-                totalQuntity = 0;
-                totalNetto = 0;
-                totalPrice = 0;
+                grandTotalBrutto += rowMdValues[6];
+                grandTotalColli += rowMdValues[4];
+
+                if(maxWeight < rowMdValues[6]) {
+                    maxWeightRowIndex = rowMdIndex;
+                    maxWeight = rowMdValues[6];
+                }
+
+
+                totalQuntity = x.Quantity;
+                totalNetto = x.Netto;
+                totalPrice = x.TotalPrice;
 
             }
 
         } else {
             t++;
             p = 1;
+            if(oldRow.Uktz) {
+                const rowMdValues = [];
+                rowMdValues[1] = oldRow.Uktz;
+                rowMdValues[2] = oldRow.G31;
+                rowMdValues[3] = oldRow.Country;
+                rowMdValues[4] = Math.round(data.colli * totalNetto / data.netto);
+                rowMdValues[5] = totalQuntity;
+                rowMdValues[6] = Math.round(((data.brutto - data.netto) * totalNetto / data.netto + totalNetto)*1000)/1000;
+                rowMdValues[7] = totalNetto;
+                rowMdValues[8] = totalPrice;
 
-            const rowMdValues = [];
-            rowMdValues[1] = x.Uktz;
-            rowMdValues[2] = x.G31;
-            rowMdValues[3] = x.Country;
-            rowMdValues[4] = Math.round(data.colli * x.Netto / data.netto);
-            rowMdValues[5] = totalQuntity;
-            rowMdValues[6] = Math.round((x.Netto + (data.brutto - data.netto) * x.Netto / data.Netto)*1000)/1000;
-            rowMdValues[7] = totalNetto;
-            rowMdValues[8] = totalPrice;
+                resultMdWorksheet.addRow(rowMdValues);
+                rowMdIndex++;
 
-            resultMdWorksheet.addRow(rowMdValues);
+                grandTotalBrutto += rowMdValues[6];
+                grandTotalColli += rowMdValues[4];
 
-            totalQuntity = 0;
-            totalNetto = 0;
-            totalPrice = 0;
+                if(maxWeight < rowMdValues[6]) {
+                    maxWeightRowIndex = rowMdIndex;
+                    maxWeight = rowMdValues[6];
+                }
+
+            } else {
+                totalQuntity += x.Quantity;
+                totalNetto += x.Netto;
+                totalPrice += x.TotalPrice;
+            }
+
+            totalQuntity = x.Quantity;
+            totalNetto = x.Netto;
+            totalPrice = x.TotalPrice;
         }
-
-        uktz = x.Uktz;
-        country = x.Country;
 
         const rowEValues = [];
         rowEValues[1] = t;
@@ -239,8 +268,39 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
         resultEWorksheet.addRow(rowEValues);
 
 
+        oldRow = x;
+
     });
 
+    // last grouped row
+
+    const rowMdValues = [];
+    rowMdValues[1] = oldRow.Uktz;
+    rowMdValues[2] = oldRow.G31;
+    rowMdValues[3] = oldRow.Country;
+    rowMdValues[4] = Math.round(data.colli * totalNetto / data.netto);
+    rowMdValues[5] = totalQuntity;
+    rowMdValues[6] = Math.round(((data.brutto - data.netto) * totalNetto / data.netto + totalNetto)*1000)/1000;
+    rowMdValues[7] = totalNetto;
+    rowMdValues[8] = totalPrice;
+
+    resultMdWorksheet.addRow(rowMdValues);
+    rowMdIndex++;
+
+    grandTotalBrutto += rowMdValues[6];
+    grandTotalColli += rowMdValues[4];
+
+    if(maxWeight < rowMdValues[6]) {
+        maxWeightRowIndex = rowMdIndex;
+        maxWeight = rowMdValues[6];
+    }
+
+    // end last grouped row
+
+    // correction
+    resultMdWorksheet.getCell(maxWeightRowIndex, 6).value += data.brutto - grandTotalBrutto;
+    resultMdWorksheet.getCell(maxWeightRowIndex, 4).value += data.colli - grandTotalColli;
+    // end correction
 
     await reusltEWorkbook.xlsx.writeFile(tempLocalResultEFile);
     await reusltMdWorkbook.xlsx.writeFile(tempLocalResultMdFile);
