@@ -44,6 +44,7 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
                 const quantity = row.values[6];
                 const price = row.values[7];
                 const totalPrice = row.values[8];
+                const weight = row.values[9];
                 const country = row.values[11];
 
                 if(item) {
@@ -56,7 +57,8 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
                         quantity,
                         price,
                         totalPrice,
-                        country
+                        country,
+                        weight
                     });
 
                 }
@@ -80,7 +82,9 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
                 TotalPrice: inv.totalPrice,
                 Quantity: inv.quantity,
                 OumT: row.oumT,
-                Country: inv.country
+                Country: inv.country,
+                Netto: inv.weight,
+                G31: row.g31
             });
         }
     });
@@ -93,18 +97,29 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
                 ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 : (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
                     (a.Item > b.Item ? 1 : -1) : -1)) : -1)): -1);
 
-    // generate result E
+    // generate results
 
     const resultEFileName = "result_E.xlsx";
+    const resultMdFileName = "result_Md.xlsx";
+
     const resultEFilePath = `/OutBox/${resultEFileName}`;
+    const resultMdFilePath = `/OutBox/${resultMdFileName}`;
+
     const tempLocalResultEFile = path.join(os.tmpdir(), resultEFileName);
+    const tempLocalResultMdFile = path.join(os.tmpdir(), resultMdFileName);
+
     const contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    const metadata = {
+    const metadataE = {
         contentType: contentType,
         contentDisposition: `filename="${resultEFileName}"`
     };
+    const metadataMd = {
+        contentType: contentType,
+        contentDisposition: `filename="${resultMdFileName}"`
+    };
 
     const reusltEWorkbook = new excel.Workbook();
+    const reusltMdWorkbook = new excel.Workbook();
 
 
     // create new sheet with pageSetup settings for A4 - landscape
@@ -128,8 +143,29 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
         { header: 'Country', key: 'country', width: 10}
     ];
 
+
+    const resultMdWorksheet =  reusltMdWorkbook.addWorksheet('MD', {
+        pageSetup:{paperSize: 8, orientation:'landscape'}
+    });
+
+    resultMdWorksheet.columns = [
+        { header: 'UKTZ', key: 'uktz', width: 28 },
+        { header: 'G31', key: 'g31', width: 52},
+        { header: 'Страна', key: 'country', width: 10},
+        { header: 'Места', key: 'place', width: 6},
+        { header: 'Кол', key: 'quantity', width: 14},
+        { header: 'Бвес', key: 'b', width: 14},
+        { header: 'Нвес', key: 'n', width: 14},
+        { header: 'Стоимость', key: 'price', width: 14}
+    ];
+
+
+
     let t = 0;
     let p = 0;
+    let totalQuntity = 0;
+    let totalNetto = 0;
+    let totalPrice = 0;
     let country = '';
     let uktz = '';
 
@@ -138,56 +174,97 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
         if(uktz === x.Uktz) {
             if(country === x.Country) {
                 p++;
+                totalQuntity += x.Quantity;
+                totalNetto += x.Netto;
+                totalPrice += x.TotalPrice;
             } else {
                 t++;
                 p = 1;
+
+                const rowMdValues = [];
+                rowMdValues[1] = x.Uktz;
+                rowMdValues[2] = x.G31;
+                rowMdValues[3] = x.Country;
+                rowMdValues[4] = Math.round(data.colli * x.Netto / data.netto);
+                rowMdValues[5] = totalQuntity;
+                rowMdValues[6] = Math.round((x.Netto + (data.brutto - data.netto) * x.Netto / data.Netto)*1000)/1000;
+                rowMdValues[7] = totalNetto;
+                rowMdValues[8] = totalPrice;
+
+                resultMdWorksheet.addRow(rowMdValues);
+
+                totalQuntity = 0;
+                totalNetto = 0;
+                totalPrice = 0;
+
             }
 
         } else {
             t++;
             p = 1;
+
+            const rowMdValues = [];
+            rowMdValues[1] = x.Uktz;
+            rowMdValues[2] = x.G31;
+            rowMdValues[3] = x.Country;
+            rowMdValues[4] = Math.round(data.colli * x.Netto / data.netto);
+            rowMdValues[5] = totalQuntity;
+            rowMdValues[6] = Math.round((x.Netto + (data.brutto - data.netto) * x.Netto / data.Netto)*1000)/1000;
+            rowMdValues[7] = totalNetto;
+            rowMdValues[8] = totalPrice;
+
+            resultMdWorksheet.addRow(rowMdValues);
+
+            totalQuntity = 0;
+            totalNetto = 0;
+            totalPrice = 0;
         }
 
         uktz = x.Uktz;
         country = x.Country;
 
-        const rowValues = [];
-        rowValues[1] = t;
-        rowValues[2] = p;
-        rowValues[3] = x.DescriptionUa;
-        rowValues[4] = x.Item;
-        rowValues[5] = x.Price;
-        rowValues[6] = x.TotalPrice;
+        const rowEValues = [];
+        rowEValues[1] = t;
+        rowEValues[2] = p;
+        rowEValues[3] = x.DescriptionUa;
+        rowEValues[4] = x.Item;
+        rowEValues[5] = x.Price;
+        rowEValues[6] = x.TotalPrice;
 
-        rowValues[9] = x.Quantity;
-        rowValues[10] = x.OumT;
-        rowValues[11] = 'нема даних';
-        rowValues[12] = 'нема даних';
-        rowValues[13] = x.Country;
-        resultEWorksheet.addRow(rowValues);
+        rowEValues[9] = x.Quantity;
+        rowEValues[10] = x.OumT;
+        rowEValues[11] = 'нема даних';
+        rowEValues[12] = 'нема даних';
+        rowEValues[13] = x.Country;
+        resultEWorksheet.addRow(rowEValues);
 
 
     });
 
-    await reusltEWorkbook.xlsx.writeFile(tempLocalResultEFile);
 
-    await bucket.upload(tempLocalResultEFile, {destination: resultEFilePath, metadata: metadata});
+    await reusltEWorkbook.xlsx.writeFile(tempLocalResultEFile);
+    await reusltMdWorkbook.xlsx.writeFile(tempLocalResultMdFile);
+
+    await bucket.upload(tempLocalResultEFile, {destination: resultEFilePath, metadata: metadataE});
+    await bucket.upload(tempLocalResultMdFile, {destination: resultMdFilePath, metadata: metadataMd});
 
     fs.unlinkSync(tempLocalResultEFile);
+    fs.unlinkSync(tempLocalResultMdFile);
 
     const config = {
         action: 'read',
         expires: '03-01-2500',
     };
     const reusltEFile = bucket.file(resultEFilePath);
+    const reusltMdFile = bucket.file(resultMdFilePath);
+
     const resultEUrl = await reusltEFile.getSignedUrl(config);
-
-
+    const resultMdUrl = await reusltMdFile.getSignedUrl(config);
 
 
     return {
         urlOne: resultEUrl,
-        urlTwo: 'www.yahoo.com'
+        urlTwo: resultMdUrl
     };
 });
 
