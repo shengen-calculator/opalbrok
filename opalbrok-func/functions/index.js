@@ -225,7 +225,7 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
                         Uktz: x.Uktz,
                         G31: x.DescriptionUa,
                         Country: x.Country,
-                        DescriptionUa:'',
+                        DescriptionUa: x.DescriptionUa,
                         Item: ''
                     });
                 }
@@ -235,7 +235,7 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
                     Uktz: x.Uktz,
                     G31: x.DescriptionUa,
                     Country: x.Country,
-                    DescriptionUa:'',
+                    DescriptionUa: x.DescriptionUa,
                     Item: ''
                 });
             }
@@ -245,7 +245,7 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
                 Uktz: x.Uktz,
                 G31: x.DescriptionUa,
                 Country: x.Country,
-                DescriptionUa:'',
+                DescriptionUa: x.DescriptionUa,
                 Item: ''
             });
 
@@ -343,7 +343,6 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
 
 
     //add section two
-
     sectionTwo.sort((a, b) =>
         (a.Uktz > b.Uktz) ? 1 : (a.Uktz === b.Uktz) ?
             ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 : (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
