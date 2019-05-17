@@ -82,6 +82,7 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
                 TotalPrice: inv.totalPrice,
                 Quantity: inv.quantity,
                 OumT: row.oumT,
+                OumU: row.oumU,
                 Country: inv.country,
                 Netto: inv.weight,
                 G31: row.g31
@@ -171,9 +172,11 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
     let rowMdIndex = 1;
     let grandTotalBrutto = 0;
     let grandTotalColli = 0;
+    let sectionTwo = [];
     let oldRow = {
         Uktz:'',
-        Country:''
+        Country:'',
+        DescriptionUa:''
     };
 
     resultItems.forEach(x => {
@@ -216,7 +219,36 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
 
             }
 
+            if(oldRow.DescriptionUa === x.DescriptionUa) {
+                if(oldRow.Country !== x.Country) {
+                    sectionTwo.push({
+                        Uktz: x.Uktz,
+                        G31: x.DescriptionUa,
+                        Country: x.Country,
+                        DescriptionUa:'',
+                        Item: ''
+                    });
+                }
+            } else {
+
+                sectionTwo.push({
+                    Uktz: x.Uktz,
+                    G31: x.DescriptionUa,
+                    Country: x.Country,
+                    DescriptionUa:'',
+                    Item: ''
+                });
+            }
+
         } else {
+            sectionTwo.push({
+                Uktz: x.Uktz,
+                G31: x.DescriptionUa,
+                Country: x.Country,
+                DescriptionUa:'',
+                Item: ''
+            });
+
             t++;
             p = 1;
             if(oldRow.Uktz) {
@@ -267,6 +299,13 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
         rowEValues[13] = x.Country;
         resultEWorksheet.addRow(rowEValues);
 
+        sectionTwo.push({
+            Uktz: x.Uktz,
+            G31: `арт.${x.Item} - ${x.Quantity}${x.OumU};`,
+            Country: x.Country,
+            DescriptionUa: x.DescriptionUa,
+            Item: x.Item
+        });
 
         oldRow = x;
 
@@ -301,6 +340,28 @@ exports.generateResults = functions.https.onCall(async (data, context) => {
     resultMdWorksheet.getCell(maxWeightRowIndex, 6).value += data.brutto - grandTotalBrutto;
     resultMdWorksheet.getCell(maxWeightRowIndex, 4).value += data.colli - grandTotalColli;
     // end correction
+
+
+    //add section two
+
+    sectionTwo.sort((a, b) =>
+        (a.Uktz > b.Uktz) ? 1 : (a.Uktz === b.Uktz) ?
+            ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 : (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
+                ((a.Item > b.Item) ? 1 : (a.Item === b.Item ?
+                    (a.G31 > b.G31 ? 1 : -1) : -1)) : -1)): -1);
+
+    sectionTwo.forEach(x => {
+        const rowMdValues = [];
+        rowMdValues[1] = x.Uktz;
+        rowMdValues[2] = x.G31;
+        rowMdValues[3] = x.Country;
+        rowMdValues[8] = 0;
+
+        resultMdWorksheet.addRow(rowMdValues);
+    });
+
+
+    //end of add section two
 
     await reusltEWorkbook.xlsx.writeFile(tempLocalResultEFile);
     await reusltMdWorkbook.xlsx.writeFile(tempLocalResultMdFile);
