@@ -4,17 +4,17 @@ const Results = ({urlOne, urlTwo}) => (
     <div className="row">
         <div className="col-md-6">
             <p>
-                <a href={urlOne} className="btn btn-block btn-primary">
+                <a href={urlTwo} className="btn btn-block btn-default" download>
                     <i className="fa fa-download"/>
-                    E
+                    MD
                 </a>
             </p>
         </div>
         <div className="col-md-6">
             <p>
-                <a href={urlTwo} className="btn btn-block btn-secondary">
+                <a href={urlOne} className="btn btn-block btn-default" download>
                     <i className="fa fa-download"/>
-                    MD
+                    E
                 </a>
             </p>
         </div>

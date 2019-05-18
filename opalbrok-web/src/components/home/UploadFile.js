@@ -26,7 +26,7 @@ const UploadFile = ({file, onLoad, onChange, isWorking, status}) => (
 
         <p>
             {(file !== null)&&
-            <button type="submit" className="btn btn-block btn-default"
+            <button type="submit" className="btn btn-block btn-secondary"
                onClick={onLoad} disabled={isWorking}>{isWorking ? status : 'Load file'}</button>}
         </p>
     </div>

@@ -19,7 +19,8 @@ class App extends Component {
         this.logout = this.logout.bind(this);
     }
 
-    logout() {
+    logout(event) {
+        event.preventDefault();
         this.props.actions.logoutRequest();
         history.push('/');
     }
