@@ -81,10 +81,9 @@
 
 .company-stats {
     @extend .clearfix;
-
-    //background-color: $color-gray-lighter;
+    background-color: $color-gray-lighter;
     border-radius: 3px;
-    margin: 0px 0px 10px 0px;
+    margin: 0px 15px 10px 15px;
     padding: 20px 0px;
 }
 
@@ -92,7 +91,6 @@
     float: left;
     text-align: center;
     //width: 33%;
-    width: 50%;
 
     span, strong {
         display: block;

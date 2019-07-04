@@ -8,12 +8,12 @@ const InvoiceInfo = ({
         <div className="row">
 
             <div className="company-stats">
-                <div className="company-stat">
+                <div className="company-stat col-xs-12 col-sm-6">
                     <span>Total price, Euro</span>
                     <strong>{total}</strong>
                 </div>
 
-                <div className="company-stat">
+                <div className="company-stat col-xs-12 col-sm-6">
                     <span>Netto, kg</span>
                     <strong>{netto}</strong>
                 </div>

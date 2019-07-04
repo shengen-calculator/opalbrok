@@ -21825,15 +21825,15 @@ ul.filter-list li a:hover {
 }
 
 .company-stats {
+  background-color: #f7f7f7;
   border-radius: 3px;
-  margin: 0px 0px 10px 0px;
+  margin: 0px 15px 10px 15px;
   padding: 20px 0px;
 }
 
 .company-stat {
   float: left;
   text-align: center;
-  width: 50%;
 }
 .company-stat span, .company-stat strong {
   display: block;

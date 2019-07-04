@@ -224,7 +224,7 @@ class HomePage extends React.Component {
 }
 
 function formatNumber(num) {
-    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')
 }
 
 function mapStateToProps(state, ownProps) {
