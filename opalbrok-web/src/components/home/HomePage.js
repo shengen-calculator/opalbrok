@@ -171,6 +171,8 @@ class HomePage extends React.Component {
         let isShowResults = false;
         if (this.props.invoice.urlOne && this.props.invoice.urlTwo && !this.state.fileUpload)
             isShowResults = true;
+        const total = formatNumber(this.props.invoice.total);
+        const netto = formatNumber(this.props.invoice.netto);
 
         return (
             <div className="main-wrapper">
@@ -197,8 +199,8 @@ class HomePage extends React.Component {
                                                      url={this.props.invoice.missedPositionsUrl}/>}
 
                                     {(this.state.isShowInvoiceInfo) &&
-                                    <InvoiceInfo total={this.props.invoice.total}
-                                                 netto={this.props.invoice.netto}
+                                    <InvoiceInfo total={total}
+                                                 netto={netto}
                                                  onStart={this.onStart}
                                                  onBruttoUpdated={this.onBruttoUpdated}
                                                  onColliUpdated={this.onColliUpdated}
@@ -219,6 +221,10 @@ class HomePage extends React.Component {
 
         );
     }
+}
+
+function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
 function mapStateToProps(state, ownProps) {
