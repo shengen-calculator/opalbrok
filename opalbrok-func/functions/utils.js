@@ -4,8 +4,9 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 const excel = require('exceljs');
+const configuration = require('./settings');
 
-const getBucket = () => admin.storage().bucket('broker-d9a50.appspot.com');
+const getBucket = () => admin.storage().bucket(configuration.bucketId);
 
 const readXls = async (filePath) => {
     const tempLocalFile = path.join(os.tmpdir(), filePath);
