@@ -6,19 +6,16 @@ const InvoiceInfo = ({
                      }) => (
     <div>
         <div className="row">
-            <div className="col-sm-6">
-                <div className="form-group">
-                    <label>Total price, Euro</label>
-                    <input type="text" className="form-control" disabled
-                           value={total}/>
-                </div>
-            </div>
 
-            <div className="col-sm-6">
-                <div className="form-group">
-                    <label>Netto, kg</label>
-                    <input type="text" className="form-control" disabled
-                           value={netto}/>
+            <div className="company-stats">
+                <div className="company-stat">
+                    <span>Total price, Euro</span>
+                    <strong>{total}</strong>
+                </div>
+
+                <div className="company-stat">
+                    <span>Netto, kg</span>
+                    <strong>{netto}</strong>
                 </div>
             </div>
 
