@@ -63,8 +63,8 @@ const calculateInvoice = async (data, context) => {
 
     if(notFound === 0) {
         return {
-            total: grandTotal,
-            netto: weightTotal,
+            total: Math.round(grandTotal*100)/100,
+            netto: Math.round(weightTotal*1000)/1000,
             missedPositions: 0,
             url: ''
         };
@@ -121,8 +121,8 @@ const calculateInvoice = async (data, context) => {
 
 
     return {
-        total: grandTotal,
-        netto: weightTotal,
+        total: Math.round(grandTotal*100)/100,
+        netto: Math.round(weightTotal*1000)/1000,
         missedPositions: absenItems.length,
         url: signedUrl
     };
