@@ -283,7 +283,7 @@ const generateResults = async (data, context) => {
 
         sectionTwo.push({
             Uktz: x.Uktz,
-            G31: `арт.${x.Item} - ${x.Quantity}${x.OumU};`,
+            G31: `арт.${x.Item} -${x.Quantity}${x.OumU};`,
             Country: x.Country,
             DescriptionUa: x.DescriptionUa,
             Item: x.Item

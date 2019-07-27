@@ -90,10 +90,9 @@ const calculateInvoice = async (data, context) => {
     });
 
     catalogWorksheet.columns = [
+        { header: 'Item', key: 'item', width: 20},
         { header: 'Description', key: 'description', width: 32 },
         { header: 'DescriptionUa', key: 'descriptionUa', width: 32 },
-        { header: 'G31', key: 'g31', width: 50},
-        { header: 'Item', key: 'item', width: 10},
         { header: 'OumH', key: 'oumH', width: 10},
         { header: 'OumT', key: 'oumT', width: 10},
         { header: 'OumU', key: 'oumU', width: 10},
@@ -102,7 +101,7 @@ const calculateInvoice = async (data, context) => {
 
     absenItems.forEach(x => {
         const rowValues = [];
-        rowValues[4] = x;
+        rowValues[1] = x;
         catalogWorksheet.addRow(rowValues);
     });
 
