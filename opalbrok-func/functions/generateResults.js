@@ -128,14 +128,7 @@ const generateResults = async (data, context) => {
         { header: 'Country', key: 'country', width: 10}
     ];
 
-
-    resultEWorksheet.getRow(1).fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: {
-            argb: 'E6E6FA'
-        }
-    };
+    utils.PaintHeader(resultEWorksheet, 13);
 
 
     const resultMdWorksheet =  reusltMdWorkbook.addWorksheet('MD', {
@@ -153,14 +146,7 @@ const generateResults = async (data, context) => {
         { header: 'Стоимость', key: 'price', width: 14}
     ];
 
-
-    resultMdWorksheet.getRow(1).fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: {
-            argb: 'E6E6FA'
-        }
-    };
+    utils.PaintHeader(resultMdWorksheet, 8);
 
     let t = 0;
     let p = 0;

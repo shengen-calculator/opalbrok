@@ -96,16 +96,11 @@ const calculateInvoice = async (data, context) => {
         { header: 'OumH', key: 'oumH', width: 10},
         { header: 'OumT', key: 'oumT', width: 10},
         { header: 'OumU', key: 'oumU', width: 10},
-        { header: 'Uktz', key: 'uktz', width: 10}
+        { header: 'Uktz', key: 'uktz', width: 16}
     ];
 
-    catalogWorksheet.getRow(1).fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: {
-            argb: 'E6E6FA'
-        }
-    };
+
+    utils.PaintHeader(catalogWorksheet, 7);
 
     absenItems.forEach(x => {
         const rowValues = [];

@@ -22,5 +22,20 @@ const readXls = async (filePath) => {
     return workbook;
 };
 
+const paintHeader = (worksheet, columnsNumber) => {
+    const cells = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1', 'I1', 'J1', 'K1', 'L1','M1','N1','O1', 'P1'];
+
+    cells.slice(0, columnsNumber).forEach(key => {
+        worksheet.getCell(key).fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: {
+                argb: 'E6E6FA'
+            }
+        };
+    });
+};
+
+module.exports.PaintHeader = paintHeader;
 module.exports.ReadXls = readXls;
 module.exports.GetBucket = getBucket;
