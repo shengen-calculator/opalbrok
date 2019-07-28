@@ -99,6 +99,14 @@ const calculateInvoice = async (data, context) => {
         { header: 'Uktz', key: 'uktz', width: 10}
     ];
 
+    catalogWorksheet.getRow(1).fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: {
+            argb: 'E6E6FA'
+        }
+    };
+
     absenItems.forEach(x => {
         const rowValues = [];
         rowValues[1] = x;

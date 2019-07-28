@@ -8,7 +8,8 @@ const utils = require('./utils');
 
 const generateResults = async (data, context) => {
     if (!context.auth) {
-        throw new functions.https.HttpsError('failed-precondition', 'The function must be called while authenticated.');
+        throw new functions.https.HttpsError('failed-precondition',
+            'The function must be called while authenticated.');
     }
 
     if (!data.fileName) {
@@ -77,7 +78,8 @@ const generateResults = async (data, context) => {
     resultItems.sort((a, b) =>
         (a.Uktz > b.Uktz) ? 1 : (a.Uktz === b.Uktz) ?
             ((a.Country > b.Country) ? 1 : (a.Country === b.Country ?
-                ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 : (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
+                ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 :
+                    (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
                     (a.Item > b.Item ? 1 : -1) : -1)) : -1)): -1);
 
     // generate results
@@ -127,6 +129,15 @@ const generateResults = async (data, context) => {
     ];
 
 
+    resultEWorksheet.getRow(1).fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: {
+            argb: 'E6E6FA'
+        }
+    };
+
+
     const resultMdWorksheet =  reusltMdWorkbook.addWorksheet('MD', {
         pageSetup:{paperSize: 8, orientation:'landscape'}
     });
@@ -143,6 +154,13 @@ const generateResults = async (data, context) => {
     ];
 
 
+    resultMdWorksheet.getRow(1).fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: {
+            argb: 'E6E6FA'
+        }
+    };
 
     let t = 0;
     let p = 0;
@@ -179,7 +197,8 @@ const generateResults = async (data, context) => {
                 rowMdValues[3] = oldRow.Country;
                 rowMdValues[4] = Math.round(data.colli * totalNetto / data.netto);
                 rowMdValues[5] = totalQuntity;
-                rowMdValues[6] = Math.round(((data.brutto - data.netto) * totalNetto / data.netto + totalNetto)*1000)/1000;
+                rowMdValues[6] = Math.round(((data.brutto - data.netto) *
+                    totalNetto / data.netto + totalNetto)*1000)/1000;
                 rowMdValues[7] = totalNetto;
                 rowMdValues[8] = totalPrice;
 
@@ -240,7 +259,8 @@ const generateResults = async (data, context) => {
                 rowMdValues[3] = oldRow.Country;
                 rowMdValues[4] = Math.round(data.colli * totalNetto / data.netto);
                 rowMdValues[5] = totalQuntity;
-                rowMdValues[6] = Math.round(((data.brutto - data.netto) * totalNetto / data.netto + totalNetto)*1000)/1000;
+                rowMdValues[6] = Math.round(((data.brutto - data.netto) *
+                    totalNetto / data.netto + totalNetto)*1000)/1000;
                 rowMdValues[7] = totalNetto;
                 rowMdValues[8] = totalPrice;
 
@@ -301,7 +321,8 @@ const generateResults = async (data, context) => {
     rowMdValues[3] = oldRow.Country;
     rowMdValues[4] = Math.round(data.colli * totalNetto / data.netto);
     rowMdValues[5] = totalQuntity;
-    rowMdValues[6] = Math.round(((data.brutto - data.netto) * totalNetto / data.netto + totalNetto)*1000)/1000;
+    rowMdValues[6] = Math.round(((data.brutto - data.netto) *
+        totalNetto / data.netto + totalNetto)*1000)/1000;
     rowMdValues[7] = totalNetto;
     rowMdValues[8] = totalPrice;
 
@@ -327,7 +348,8 @@ const generateResults = async (data, context) => {
     //add section two
     sectionTwo.sort((a, b) =>
         (a.Uktz > b.Uktz) ? 1 : (a.Uktz === b.Uktz) ?
-            ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 : (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
+            ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 :
+                (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
                 ((a.Item > b.Item) ? 1 : (a.Item === b.Item ?
                     (a.G31 > b.G31 ? 1 : -1) : -1)) : -1)): -1);
 

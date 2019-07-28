@@ -4,7 +4,8 @@ const utils = require('./utils');
 
 const addProducts = async (data, context) => {
     if (!context.auth) {
-        throw new functions.https.HttpsError('failed-precondition', 'The function must be called while authenticated.');
+        throw new functions.https.HttpsError('failed-precondition',
+            'The function must be called while authenticated.');
     }
 
     const workbook = await utils.ReadXls(`/InBox/${data}`);
@@ -32,22 +33,26 @@ const addProducts = async (data, context) => {
                 const uktz = row.values[7];
                 const g31 = uktzTable[uktz] ? uktzTable[uktz].description : null;
 
-                if(!g31)
-                    throw new functions.https.HttpsError('invalid-argument', `Code uktz ${uktz} not found`);
+                if(g31) {
+                    if(item) {
+                        promises.push(admin.firestore().collection('products').doc(item.replace('/','#')).set({
+                            item,
+                            description,
+                            descriptionUa,
+                            oumU,
+                            oumH,
+                            oumT,
+                            uktz,
+                            g31
+                        }));
+                        counter++;
+                    }
 
-                if(item) {
-                    promises.push(admin.firestore().collection('products').doc(item.replace('/','#')).set({
-                        item,
-                        description,
-                        descriptionUa,
-                        oumU,
-                        oumH,
-                        oumT,
-                        uktz,
-                        g31
-                    }));
-                    counter++;
+                } else {
+                    throw new functions.https.HttpsError('invalid-argument',
+                        `Code uktz ${uktz} not found`);
                 }
+
             }
         });
 
