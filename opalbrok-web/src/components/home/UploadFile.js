@@ -1,6 +1,10 @@
 import React from 'react';
 import '../../css/fileinput.min.css';
 
+const clearInput = (event) => {
+    event.target.value = null;
+};
+
 const UploadFile = ({file, onLoad, onChange, isWorking, status}) => (
     <div>
         <div className="form-group">
@@ -18,6 +22,7 @@ const UploadFile = ({file, onLoad, onChange, isWorking, status}) => (
                         <div className={isWorking ? 'btn btn-primary btn-file disabled' : 'btn btn-primary btn-file'}>Browse<input
                             type="file" name="form-register-photo"
                             onChange={onChange}
+                            onClick={clearInput}
                             disabled={isWorking}/></div>
                     </div>
                 </div>
