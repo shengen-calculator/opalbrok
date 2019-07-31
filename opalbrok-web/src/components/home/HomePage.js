@@ -8,6 +8,7 @@ import {withRouter} from 'react-router-dom';
 import UploadFile from './UploadFile';
 import MissedPositions from './MissedPositions';
 import InvoiceInfo from './InvoiceInfo';
+import Header from '../common/Header';
 import Results from './Results';
 import history from '../common/history';
 import * as utils from '../../utils/fileNameService';
@@ -76,7 +77,7 @@ class HomePage extends React.Component {
             }
             if (this.props.catalog.isInserting) {
 
-                if(this.props.invoice.fileName) {
+                if (this.props.invoice.fileName) {
                     this.props.funcActions.calculateInvoiceRequest(
                         this.props.invoice.fileName);
                 } else {
@@ -175,44 +176,47 @@ class HomePage extends React.Component {
         const netto = formatNumber(this.props.invoice.netto);
 
         return (
-            <div className="main-wrapper">
-                <div className="main">
-                    <div className="document-title">
-                        <div className="container">
-                            <h1 className="center">Home Page</h1>
+            <div className="page-wrapper">
+                <Header/>
+                <div className="main-wrapper">
+                    <div className="main">
+                        <div className="document-title">
+                            <div className="container">
+                                <h1 className="center">Home Page</h1>
+                            </div>
                         </div>
-                    </div>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-8 col-md-offset-2">
-                                <form>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-8 col-md-offset-2">
+                                    <form>
 
-                                    <UploadFile file={this.state.fileUpload}
-                                                onChange={this.fileOnSelect}
-                                                onLoad={this.fileOnUpload}
-                                                isWorking={isWorking || this.props.invoice.isGenereting}
-                                                status={status}
-                                    />
+                                        <UploadFile file={this.state.fileUpload}
+                                                    onChange={this.fileOnSelect}
+                                                    onLoad={this.fileOnUpload}
+                                                    isWorking={isWorking || this.props.invoice.isGenereting}
+                                                    status={status}
+                                        />
 
-                                    {(this.state.isShowMissedPositions) &&
-                                    <MissedPositions quantity={this.props.invoice.missedPositions}
-                                                     url={this.props.invoice.missedPositionsUrl}/>}
+                                        {(this.state.isShowMissedPositions) &&
+                                        <MissedPositions quantity={this.props.invoice.missedPositions}
+                                                         url={this.props.invoice.missedPositionsUrl}/>}
 
-                                    {(this.state.isShowInvoiceInfo) &&
-                                    <InvoiceInfo total={total}
-                                                 netto={netto}
-                                                 onStart={this.onStart}
-                                                 onBruttoUpdated={this.onBruttoUpdated}
-                                                 onColliUpdated={this.onColliUpdated}
-                                                 colli={this.state.colli}
-                                                 brutto={this.state.brutto}
-                                                 isGenerating={this.props.invoice.isGenereting}/>}
+                                        {(this.state.isShowInvoiceInfo) &&
+                                        <InvoiceInfo total={total}
+                                                     netto={netto}
+                                                     onStart={this.onStart}
+                                                     onBruttoUpdated={this.onBruttoUpdated}
+                                                     onColliUpdated={this.onColliUpdated}
+                                                     colli={this.state.colli}
+                                                     brutto={this.state.brutto}
+                                                     isGenerating={this.props.invoice.isGenereting}/>}
 
-                                    {(isShowResults) && <Results
-                                        urlOne={this.props.invoice.urlOne}
-                                        urlTwo={this.props.invoice.urlTwo}
-                                    />}
-                                </form>
+                                        {(isShowResults) && <Results
+                                            urlOne={this.props.invoice.urlOne}
+                                            urlTwo={this.props.invoice.urlTwo}
+                                        />}
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

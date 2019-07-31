@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import * as authenticationAction from '../../actions/authenticationActions';
 import {bindActionCreators} from 'redux';
+import Header from "../common/Header";
 
 class LoginPage extends React.Component {
     constructor(props, context) {
@@ -26,7 +27,7 @@ class LoginPage extends React.Component {
     login(event) {
         event.preventDefault();
 
-        if(!this.state.credentials.email || !this.state.credentials.password)
+        if (!this.state.credentials.email || !this.state.credentials.password)
             return;
 
         this.props.actions.authenticationRequest({
@@ -46,6 +47,8 @@ class LoginPage extends React.Component {
             return <Redirect to={from}/>
         }
         return (
+            <div className="page-wrapper">
+                <Header/>
                 <div className="main-wrapper">
                     <div className="main">
                         <div className="document-title">
@@ -95,6 +98,7 @@ class LoginPage extends React.Component {
                         </div>
                     </div>
                 </div>
+            </div>
         );
     }
 }
