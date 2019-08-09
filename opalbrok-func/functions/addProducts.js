@@ -9,16 +9,14 @@ const addProducts = async (data, context) => {
     }
 
     const workbook = await utils.ReadXls(`/InBox/${data}`);
-    const uktzTable = {};
+    const uktzMap = new Map();
     const promises = [];
     let counter = 0;
 
     const uktzTableSnapshot = await admin.firestore().collection('UKTZ_kod').get();
 
     uktzTableSnapshot.forEach(doc => {
-        uktzTable[doc.id] = {
-            description: doc.data().G31
-        };
+        uktzMap.set(parseInt(doc.id), doc.data().G31);
     });
 
     workbook.eachSheet((worksheet) => {
@@ -31,7 +29,7 @@ const addProducts = async (data, context) => {
                 const oumT = row.values[5];
                 const oumU = row.values[6];
                 const uktz = row.values[7];
-                const g31 = uktzTable[uktz] ? uktzTable[uktz].description : null;
+                const g31 = uktzMap.has(uktz) ? uktzMap.get(uktz) : null;
 
                 if(g31) {
                     if(item) {
