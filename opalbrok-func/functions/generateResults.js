@@ -11,12 +11,13 @@ const generateResults = async (data, context) => {
         throw new functions.https.HttpsError('failed-precondition',
             'The function must be called while authenticated.');
     }
+    const {colli, brutto, fileName, netto} = data;
 
-    if (!data.fileName) {
+    if (!fileName) {
         throw new functions.https.HttpsError('invalid-argument',
             'The function must be called with one argument "file Name"');
     }
-    const workbook = await utils.ReadXls(`/InBox/${data.fileName}`);
+    const workbook = await utils.ReadXls(`/InBox/${fileName}`);
 
     const promises = [];
     const resultItems =[];
@@ -181,9 +182,9 @@ const generateResults = async (data, context) => {
                 rowMdValues[1] = oldRow.Uktz;
                 rowMdValues[2] = oldRow.G31;
                 rowMdValues[3] = oldRow.Country;
-                rowMdValues[4] = Math.round(data.colli * totalNetto / data.netto);
+                rowMdValues[4] = Math.round(colli * totalNetto / data.netto);
                 rowMdValues[5] = totalQuntity;
-                rowMdValues[6] = Math.round(((data.brutto - data.netto) *
+                rowMdValues[6] = Math.round(((brutto - data.netto) *
                     totalNetto / data.netto + totalNetto)*1000)/1000;
                 rowMdValues[7] = totalNetto;
                 rowMdValues[8] = totalPrice;
@@ -243,9 +244,9 @@ const generateResults = async (data, context) => {
                 rowMdValues[1] = oldRow.Uktz;
                 rowMdValues[2] = oldRow.G31;
                 rowMdValues[3] = oldRow.Country;
-                rowMdValues[4] = Math.round(data.colli * totalNetto / data.netto);
+                rowMdValues[4] = Math.round(colli * totalNetto / data.netto);
                 rowMdValues[5] = totalQuntity;
-                rowMdValues[6] = Math.round(((data.brutto - data.netto) *
+                rowMdValues[6] = Math.round(((brutto - data.netto) *
                     totalNetto / data.netto + totalNetto)*1000)/1000;
                 rowMdValues[7] = totalNetto;
                 rowMdValues[8] = totalPrice;
@@ -305,10 +306,10 @@ const generateResults = async (data, context) => {
     rowMdValues[1] = oldRow.Uktz;
     rowMdValues[2] = oldRow.G31;
     rowMdValues[3] = oldRow.Country;
-    rowMdValues[4] = Math.round(data.colli * totalNetto / data.netto);
+    rowMdValues[4] = Math.round(colli * totalNetto / netto);
     rowMdValues[5] = totalQuntity;
-    rowMdValues[6] = Math.round(((data.brutto - data.netto) *
-        totalNetto / data.netto + totalNetto)*1000)/1000;
+    rowMdValues[6] = Math.round(((brutto - netto) *
+        totalNetto / netto + totalNetto)*1000)/1000;
     rowMdValues[7] = totalNetto;
     rowMdValues[8] = totalPrice;
 
@@ -326,8 +327,8 @@ const generateResults = async (data, context) => {
     // end last grouped row
 
     // correction
-    resultMdWorksheet.getCell(maxWeightRowIndex, 6).value += data.brutto - grandTotalBrutto;
-    resultMdWorksheet.getCell(maxWeightRowIndex, 4).value += data.colli - grandTotalColli;
+    resultMdWorksheet.getCell(maxWeightRowIndex, 6).value += brutto - grandTotalBrutto;
+    resultMdWorksheet.getCell(maxWeightRowIndex, 4).value += colli - grandTotalColli;
     // end correction
 
 
