@@ -20,7 +20,6 @@ class Header extends Component {
     render() {
         const {pathname} = this.props.location;
         const showLogIn = pathname !== '/login';
-        debugger;
         const {auth} = this.props;
         return (
             <div className="header-wrapper">
