@@ -20,33 +20,42 @@ const generateResults = async (data, context) => {
     const workbook = await utils.ReadXls(`/InBox/${fileName}`);
 
     const promises = [];
-    const resultItems =[];
+    const resultItems = [];
     const invoiceItems = [];
+    let isReadStarted = false;
+    let isReadEnded = false;
 
     workbook.eachSheet((worksheet) => {
-        worksheet.eachRow((row, number) => {
-            if(number > 1) {
-                const item = row.values[2].toString();
-                const quantity = row.values[6];
-                const price = row.values[7];
-                const totalPrice = row.values[8];
-                const weight = row.values[9];
-                const country = row.values[11];
+        worksheet.eachRow((row) => {
+            if (!isReadEnded) {
+                if (utils.isDataRow(row)) {
+                    isReadStarted = true;
+                    const item = row.values[2].toString();
+                    const quantity = row.values[6];
+                    const price = row.values[7];
+                    const totalPrice = row.values[8];
+                    const weight = row.values[9];
+                    const country = row.values[11];
 
-                if(item) {
-                    promises.push(
-                        admin.firestore().collection('products').doc(item.replace('/','#')).get()
-                    );
+                    if (item) {
+                        promises.push(
+                            admin.firestore().collection('products').doc(item.replace('/', '#')).get()
+                        );
 
-                    invoiceItems.push({
-                        item,
-                        quantity,
-                        price,
-                        totalPrice,
-                        country,
-                        weight
-                    });
+                        invoiceItems.push({
+                            item,
+                            quantity,
+                            price,
+                            totalPrice,
+                            country,
+                            weight
+                        });
 
+                    }
+
+                } else {
+                    if (isReadStarted)
+                        isReadEnded = true;
                 }
             }
 
@@ -59,7 +68,7 @@ const generateResults = async (data, context) => {
 
         const row = querySnapshot.data();
         const inv = invoiceItems.find(x => x.item === row.item);
-        if(row){
+        if (row) {
             resultItems.push({
                 Uktz: row.uktz,
                 DescriptionUa: row.descriptionUa.trimRight(),
@@ -81,7 +90,7 @@ const generateResults = async (data, context) => {
             ((a.Country > b.Country) ? 1 : (a.Country === b.Country ?
                 ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 :
                     (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
-                    (a.Item > b.Item ? 1 : -1) : -1)) : -1)): -1);
+                        (a.Item > b.Item ? 1 : -1) : -1)) : -1)) : -1);
 
     // generate results
 
@@ -109,42 +118,42 @@ const generateResults = async (data, context) => {
 
 
     // create new sheet with pageSetup settings for A4 - landscape
-    const resultEWorksheet =  reusltEWorkbook.addWorksheet('sheet1', {
-        pageSetup:{paperSize: 15, orientation:'landscape'}
+    const resultEWorksheet = reusltEWorkbook.addWorksheet('sheet1', {
+        pageSetup: {paperSize: 15, orientation: 'landscape'}
     });
 
     resultEWorksheet.columns = [
-        { header: 'Товар', key: 'tovar', width: 5 },
-        { header: 'Поз', key: 'poz', width: 5},
-        { header: 'Description_UA', key: 'description', width: 52},
-        { header: 'Item', key: 'item', width: 18},
-        { header: 'Price', key: 'price', width: 10},
-        { header: 'Total_Price', key: 'tot_price', width: 10},
-        { header: 'Б', key: 'b', width: 2},
-        { header: 'Н', key: 'n', width: 2},
-        { header: 'Quantity', key: 'quantity', width: 10},
-        { header: 'OUM_T', key: 'oum', width: 10},
-        { header: 'TM', key: 'tm', width: 15},
-        { header: 'Выр', key: 'vir', width: 15},
-        { header: 'Country', key: 'country', width: 10}
+        {header: 'Товар', key: 'tovar', width: 5},
+        {header: 'Поз', key: 'poz', width: 5},
+        {header: 'Description_UA', key: 'description', width: 52},
+        {header: 'Item', key: 'item', width: 18},
+        {header: 'Price', key: 'price', width: 10},
+        {header: 'Total_Price', key: 'tot_price', width: 10},
+        {header: 'Б', key: 'b', width: 2},
+        {header: 'Н', key: 'n', width: 2},
+        {header: 'Quantity', key: 'quantity', width: 10},
+        {header: 'OUM_T', key: 'oum', width: 10},
+        {header: 'TM', key: 'tm', width: 15},
+        {header: 'Выр', key: 'vir', width: 15},
+        {header: 'Country', key: 'country', width: 10}
     ];
 
     utils.PaintHeader(resultEWorksheet, 13);
 
 
-    const resultMdWorksheet =  reusltMdWorkbook.addWorksheet('MD', {
-        pageSetup:{paperSize: 8, orientation:'landscape'}
+    const resultMdWorksheet = reusltMdWorkbook.addWorksheet('MD', {
+        pageSetup: {paperSize: 8, orientation: 'landscape'}
     });
 
     resultMdWorksheet.columns = [
-        { header: 'UKTZ', key: 'uktz', width: 16 },
-        { header: 'G31', key: 'g31', width: 52},
-        { header: 'Страна', key: 'country', width: 10},
-        { header: 'Места', key: 'colli', width: 6},
-        { header: 'Кол', key: 'quantity', width: 14},
-        { header: 'Бвес', key: 'b', width: 14},
-        { header: 'Нвес', key: 'n', width: 14},
-        { header: 'Стоимость', key: 'price', width: 14}
+        {header: 'UKTZ', key: 'uktz', width: 16},
+        {header: 'G31', key: 'g31', width: 52},
+        {header: 'Страна', key: 'country', width: 10},
+        {header: 'Места', key: 'colli', width: 6},
+        {header: 'Кол', key: 'quantity', width: 14},
+        {header: 'Бвес', key: 'b', width: 14},
+        {header: 'Нвес', key: 'n', width: 14},
+        {header: 'Стоимость', key: 'price', width: 14}
     ];
 
     utils.PaintHeader(resultMdWorksheet, 8);
@@ -161,15 +170,15 @@ const generateResults = async (data, context) => {
     let grandTotalColli = 0;
     let sectionTwo = [];
     let oldRow = {
-        Uktz:'',
-        Country:'',
-        DescriptionUa:''
+        Uktz: '',
+        Country: '',
+        DescriptionUa: ''
     };
 
     resultItems.forEach(x => {
 
-        if(oldRow.Uktz === x.Uktz) {
-            if(oldRow.Country === x.Country) {
+        if (oldRow.Uktz === x.Uktz) {
+            if (oldRow.Country === x.Country) {
                 p++;
                 totalQuntity += x.Quantity;
                 totalNetto += x.Netto;
@@ -185,7 +194,7 @@ const generateResults = async (data, context) => {
                 rowMdValues[4] = Math.round(colli * totalNetto / data.netto);
                 rowMdValues[5] = totalQuntity;
                 rowMdValues[6] = Math.round(((brutto - data.netto) *
-                    totalNetto / data.netto + totalNetto)*1000)/1000;
+                    totalNetto / data.netto + totalNetto) * 1000) / 1000;
                 rowMdValues[7] = totalNetto;
                 rowMdValues[8] = totalPrice;
 
@@ -195,7 +204,7 @@ const generateResults = async (data, context) => {
                 grandTotalBrutto += rowMdValues[6];
                 grandTotalColli += rowMdValues[4];
 
-                if(maxWeight < rowMdValues[6]) {
+                if (maxWeight < rowMdValues[6]) {
                     maxWeightRowIndex = rowMdIndex;
                     maxWeight = rowMdValues[6];
                 }
@@ -207,8 +216,8 @@ const generateResults = async (data, context) => {
 
             }
 
-            if(oldRow.DescriptionUa === x.DescriptionUa) {
-                if(oldRow.Country !== x.Country) {
+            if (oldRow.DescriptionUa === x.DescriptionUa) {
+                if (oldRow.Country !== x.Country) {
                     sectionTwo.push({
                         Uktz: x.Uktz,
                         G31: x.DescriptionUa,
@@ -239,7 +248,7 @@ const generateResults = async (data, context) => {
 
             t++;
             p = 1;
-            if(oldRow.Uktz) {
+            if (oldRow.Uktz) {
                 const rowMdValues = [];
                 rowMdValues[1] = oldRow.Uktz;
                 rowMdValues[2] = oldRow.G31;
@@ -247,7 +256,7 @@ const generateResults = async (data, context) => {
                 rowMdValues[4] = Math.round(colli * totalNetto / data.netto);
                 rowMdValues[5] = totalQuntity;
                 rowMdValues[6] = Math.round(((brutto - data.netto) *
-                    totalNetto / data.netto + totalNetto)*1000)/1000;
+                    totalNetto / data.netto + totalNetto) * 1000) / 1000;
                 rowMdValues[7] = totalNetto;
                 rowMdValues[8] = totalPrice;
 
@@ -257,7 +266,7 @@ const generateResults = async (data, context) => {
                 grandTotalBrutto += rowMdValues[6];
                 grandTotalColli += rowMdValues[4];
 
-                if(maxWeight < rowMdValues[6]) {
+                if (maxWeight < rowMdValues[6]) {
                     maxWeightRowIndex = rowMdIndex;
                     maxWeight = rowMdValues[6];
                 }
@@ -309,7 +318,7 @@ const generateResults = async (data, context) => {
     rowMdValues[4] = Math.round(colli * totalNetto / netto);
     rowMdValues[5] = totalQuntity;
     rowMdValues[6] = Math.round(((brutto - netto) *
-        totalNetto / netto + totalNetto)*1000)/1000;
+        totalNetto / netto + totalNetto) * 1000) / 1000;
     rowMdValues[7] = totalNetto;
     rowMdValues[8] = totalPrice;
 
@@ -319,7 +328,7 @@ const generateResults = async (data, context) => {
     grandTotalBrutto += rowMdValues[6];
     grandTotalColli += rowMdValues[4];
 
-    if(maxWeight < rowMdValues[6]) {
+    if (maxWeight < rowMdValues[6]) {
         maxWeightRowIndex = rowMdIndex;
         maxWeight = rowMdValues[6];
     }
@@ -337,8 +346,8 @@ const generateResults = async (data, context) => {
         (a.Uktz > b.Uktz) ? 1 : (a.Uktz === b.Uktz) ?
             ((a.DescriptionUa.localeCompare(b.DescriptionUa) > 0) ? 1 :
                 (a.DescriptionUa.localeCompare(b.DescriptionUa) === 0 ?
-                ((a.Item > b.Item) ? 1 : (a.Item === b.Item ?
-                    (a.G31 > b.G31 ? 1 : -1) : -1)) : -1)): -1);
+                    ((a.Item > b.Item) ? 1 : (a.Item === b.Item ?
+                        (a.G31 > b.G31 ? 1 : -1) : -1)) : -1)) : -1);
 
     sectionTwo.forEach(x => {
         const rowMdValues = [];

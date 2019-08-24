@@ -22,27 +22,35 @@ const calculateInvoice = async (data, context) => {
 
 
     const promises = [];
-    const catalogItems =[];
+    const catalogItems = [];
     const invoiceItems = [];
+    let isCalculateStarted = false;
+    let isCalculateEnded = false;
 
     //check if the all positions are presents in catalog
 
     workbook.eachSheet((worksheet) => {
-        worksheet.eachRow((row, number) => {
-            if(number > 1) {
-                const item = row.values[2].toString();
-                const totalPrice = row.values[8];
-                const weight = row.values[9];
+        worksheet.eachRow((row) => {
+            if (!isCalculateEnded) {
+                if (utils.isDataRow(row)) {
+                    isCalculateStarted = true;
+                    const item = row.values[2].toString();
+                    const totalPrice = row.values[8];
+                    const weight = row.values[9];
 
-                if(item) {
-                    promises.push(
-                        admin.firestore().collection('products').doc(item.replace('/','#')).get()
-                    );
+                    if (item) {
+                        promises.push(
+                            admin.firestore().collection('products').doc(item.replace('/', '#')).get()
+                        );
 
-                    grandTotal += totalPrice;
-                    weightTotal += weight;
-                    invoiceItems.push(item);
+                        grandTotal += totalPrice;
+                        weightTotal += weight;
+                        invoiceItems.push(item);
 
+                    }
+                } else {
+                    if (isCalculateStarted)
+                        isCalculateEnded = true;
                 }
             }
 
@@ -54,17 +62,17 @@ const calculateInvoice = async (data, context) => {
     snapshots.forEach(querySnapshot => {
 
         const row = querySnapshot.data();
-        if(!row)
+        if (!row)
             notFound++;
         else {
             catalogItems.push(row);
         }
     });
 
-    if(notFound === 0) {
+    if (notFound === 0) {
         return {
-            total: Math.round(grandTotal*100)/100,
-            netto: Math.round(weightTotal*1000)/1000,
+            total: Math.round(grandTotal * 100) / 100,
+            netto: Math.round(weightTotal * 1000) / 1000,
             missedPositions: 0,
             url: ''
         };
@@ -85,18 +93,18 @@ const calculateInvoice = async (data, context) => {
 
 
     // create new sheet with pageSetup settings for A4 - landscape
-    const catalogWorksheet =  catalogWorkbook.addWorksheet('sheet1', {
-        pageSetup:{paperSize: 9, orientation:'landscape'}
+    const catalogWorksheet = catalogWorkbook.addWorksheet('sheet1', {
+        pageSetup: {paperSize: 9, orientation: 'landscape'}
     });
 
     catalogWorksheet.columns = [
-        { header: 'Item', key: 'item', width: 20},
-        { header: 'Description', key: 'description', width: 32 },
-        { header: 'DescriptionUa', key: 'descriptionUa', width: 32 },
-        { header: 'OumH', key: 'oumH', width: 10},
-        { header: 'OumT', key: 'oumT', width: 10},
-        { header: 'OumU', key: 'oumU', width: 10},
-        { header: 'Uktz', key: 'uktz', width: 16}
+        {header: 'Item', key: 'item', width: 20},
+        {header: 'Description', key: 'description', width: 32},
+        {header: 'DescriptionUa', key: 'descriptionUa', width: 32},
+        {header: 'OumH', key: 'oumH', width: 10},
+        {header: 'OumT', key: 'oumT', width: 10},
+        {header: 'OumU', key: 'oumU', width: 10},
+        {header: 'Uktz', key: 'uktz', width: 16}
     ];
 
 
@@ -123,8 +131,8 @@ const calculateInvoice = async (data, context) => {
 
 
     return {
-        total: Math.round(grandTotal*100)/100,
-        netto: Math.round(weightTotal*1000)/1000,
+        total: Math.round(grandTotal * 100) / 100,
+        netto: Math.round(weightTotal * 1000) / 1000,
         missedPositions: absenItems.length,
         url: signedUrl
     };

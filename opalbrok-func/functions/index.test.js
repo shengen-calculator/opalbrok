@@ -1,6 +1,6 @@
 const addProducts = require('./addProducts');
 const generateResults = require('./generateResults');
-const calculateInvoice = require('./addProducts');
+const calculateInvoice = require('./calculateInvoice');
 
 
 test('add Products', () => {
@@ -21,7 +21,7 @@ test('generate Results', () => {
 test('calculate Invoice', () => {
     // noinspection JSIgnoredPromiseFromCall
     expect(
-        calculateInvoice('abc.xlsx', {auth: 'peter'})
+        calculateInvoice('opalbrok_invoice.xlsx', {auth: 'peter'})
     ).rejects.toThrow();
 
 });
