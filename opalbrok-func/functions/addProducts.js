@@ -3,9 +3,11 @@ const admin = require('firebase-admin');
 const utils = require('./utils');
 
 const addProducts = async (data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('failed-precondition',
-            'The function must be called while authenticated.');
+    if (!process.env.FUNCTIONS_EMULATOR) {
+        if (!context.auth) {
+            throw new functions.https.HttpsError('failed-precondition',
+                'The function must be called while authenticated.');
+        }
     }
 
     const workbook = await utils.ReadXls(`/InBox/${data}`);

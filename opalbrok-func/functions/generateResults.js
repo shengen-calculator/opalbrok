@@ -7,9 +7,11 @@ const excel = require('exceljs');
 const utils = require('./utils');
 
 const generateResults = async (data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('failed-precondition',
-            'The function must be called while authenticated.');
+    if (!process.env.FUNCTIONS_EMULATOR) {
+        if (!context.auth) {
+            throw new functions.https.HttpsError('failed-precondition',
+                'The function must be called while authenticated.');
+        }
     }
     const {colli, brutto, fileName, netto} = data;
 

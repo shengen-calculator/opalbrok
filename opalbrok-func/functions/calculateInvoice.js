@@ -7,14 +7,18 @@ const excel = require('exceljs');
 const utils = require('./utils');
 
 const calculateInvoice = async (data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('failed-precondition', 'The function must be called while authenticated.');
+
+    if (!process.env.FUNCTIONS_EMULATOR) {
+        if (!context.auth) {
+            throw new functions.https.HttpsError('failed-precondition', 'The function must be called while authenticated.');
+        }
     }
 
     if (!data) {
         throw new functions.https.HttpsError('invalid-argument',
             'The function must be called with one argument "file Name"');
     }
+
     const workbook = await utils.ReadXls(`/InBox/${data}`);
     let grandTotal = 0;
     let weightTotal = 0;

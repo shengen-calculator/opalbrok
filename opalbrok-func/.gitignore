@@ -2,6 +2,7 @@
 
 # dependencies
 functions/node_modules
+functions/key.json
 
 # testing
 /coverage
