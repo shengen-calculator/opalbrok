@@ -1,0 +1,10 @@
+export GOOGLE_APPLICATION_CREDENTIALS="key.json"
+
+firebase emulators:start --only functions
+
+POST http://localhost:5001/broker-d9a50/us-central1/calculateInvoice
+HEADER Content-Type: application/json
+BODY raw json(application/json)
+{
+    "data":"opalbrok_invoice.xlsx"
+}
