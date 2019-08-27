@@ -23,10 +23,7 @@ const readXls = async (filePath) => {
 };
 
 const isDataRow = (row) => {
-    if (isNaN(row.values[6]) || isNaN(row.values[7]) || isNaN(row.values[8])) {
-        return false;
-    }
-    return row.values[8] === Math.round(row.values[6] * row.values[7] * 100) / 100;
+    return !(isNaN(row.values[6]) || isNaN(row.values[7]) || isNaN(row.values[8]) || isNaN(row.values[9]));
 };
 
 const paintHeader = (worksheet, columnsNumber) => {
