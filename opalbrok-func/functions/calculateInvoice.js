@@ -38,13 +38,19 @@ const calculateInvoice = async (data, context) => {
             if (!isCalculateEnded) {
                 if (utils.isDataRow(row)) {
                     isCalculateStarted = true;
-                    const item = row.values[2].toString();
+                    const item = {
+                        id: row.values[2].toString(),
+                        description: row.values[3].toString(),
+                        descriptionUa: row.values[4].toString(),
+                        uom: row.values[5].toString()
+                    };
+
                     const totalPrice = row.values[8];
                     const weight = row.values[9];
 
-                    if (item) {
+                    if (item.id) {
                         promises.push(
-                            admin.firestore().collection('products').doc(item.replace('/', '#')).get()
+                            admin.firestore().collection('products').doc(item.id.replace('/', '#')).get()
                         );
 
                         grandTotal += totalPrice;
@@ -82,7 +88,7 @@ const calculateInvoice = async (data, context) => {
         };
     }
 
-    const absenItems = invoiceItems.filter(i => !catalogItems.find(a => i === a.item));
+    const absenItems = invoiceItems.filter(i => !catalogItems.find(a => i.id === a.item));
 
     const catalogFileName = "catalog.xlsx";
     const catalogFilePath = `/OutBox/${catalogFileName}`;
@@ -105,10 +111,10 @@ const calculateInvoice = async (data, context) => {
         {header: 'Item', key: 'item', width: 20},
         {header: 'Description', key: 'description', width: 32},
         {header: 'DescriptionUa', key: 'descriptionUa', width: 32},
-        {header: 'OumH', key: 'oumH', width: 10},
-        {header: 'OumT', key: 'oumT', width: 10},
-        {header: 'OumU', key: 'oumU', width: 10},
-        {header: 'Uktz', key: 'uktz', width: 16}
+        {header: 'OumH', key: 'oumH', width: 7},
+        {header: 'OumT', key: 'oumT', width: 7},
+        {header: 'OumU', key: 'oumU', width: 7},
+        {header: 'Uktz', key: 'uktz', width: 12}
     ];
 
 
@@ -116,7 +122,10 @@ const calculateInvoice = async (data, context) => {
 
     absenItems.forEach(x => {
         const rowValues = [];
-        rowValues[1] = x;
+        rowValues[1] = x.id;
+        rowValues[2] = x.description;
+        rowValues[3] = x.descriptionUa;
+        rowValues[4] = x.uom;
         catalogWorksheet.addRow(rowValues);
     });
 
