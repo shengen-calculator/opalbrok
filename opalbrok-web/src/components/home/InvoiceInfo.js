@@ -11,11 +11,17 @@ const InvoiceInfo = ({
                 <div className="company-stat col-xs-12 col-sm-6">
                     <span>Total price, Euro</span>
                     <strong>{total}</strong>
+                    <div className="resume-main-verified">
+                        <i className="fa fa-check"/>
+                    </div>
                 </div>
 
                 <div className="company-stat col-xs-12 col-sm-6">
                     <span>Netto, kg</span>
                     <strong>{netto}</strong>
+                    <div className="resume-main-verified">
+                        <i className="fa fa-check"/>
+                    </div>
                 </div>
             </div>
 
