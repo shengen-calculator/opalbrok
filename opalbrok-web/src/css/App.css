@@ -3134,7 +3134,7 @@ input[type=search] {
 input[type=radio],
 input[type=checkbox] {
   margin: 4px 0 0;
-  margin-top: 1px \9;
+  margin-top: 1px \9 ;
   line-height: normal;
 }
 
@@ -3278,7 +3278,7 @@ input[type=month].input-lg,
 .checkbox-inline input[type=checkbox] {
   position: absolute;
   margin-left: -20px;
-  margin-top: 4px \9;
+  margin-top: 4px \9 ;
 }
 
 .radio + .radio,
@@ -4041,7 +4041,7 @@ tbody.collapse.in {
   margin-left: 2px;
   vertical-align: middle;
   border-top: 4px dashed;
-  border-top: 4px solid \9;
+  border-top: 4px solid \9 ;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -4164,7 +4164,7 @@ tbody.collapse.in {
 .navbar-fixed-bottom .dropdown .caret {
   border-top: 0;
   border-bottom: 4px dashed;
-  border-bottom: 4px solid \9;
+  border-bottom: 4px solid \9 ;
   content: "";
 }
 .dropup .dropdown-menu,
@@ -6979,7 +6979,7 @@ button.close {
   border: 1px solid #fff;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #000 \9;
+  background-color: #000 \9 ;
   background-color: rgba(0, 0, 0, 0);
 }
 .carousel-indicators .active {
@@ -10430,7 +10430,7 @@ input[type=search] {
 input[type=radio],
 input[type=checkbox] {
   margin: 4px 0 0;
-  margin-top: 1px \9;
+  margin-top: 1px \9 ;
   line-height: normal;
 }
 
@@ -10574,7 +10574,7 @@ input[type=month].input-lg,
 .checkbox-inline input[type=checkbox] {
   position: absolute;
   margin-left: -20px;
-  margin-top: 4px \9;
+  margin-top: 4px \9 ;
 }
 
 .radio + .radio,
@@ -11337,7 +11337,7 @@ tbody.collapse.in {
   margin-left: 2px;
   vertical-align: middle;
   border-top: 4px dashed;
-  border-top: 4px solid \9;
+  border-top: 4px solid \9 ;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -11460,7 +11460,7 @@ tbody.collapse.in {
 .navbar-fixed-bottom .dropdown .caret {
   border-top: 0;
   border-bottom: 4px dashed;
-  border-bottom: 4px solid \9;
+  border-bottom: 4px solid \9 ;
   content: "";
 }
 .dropup .dropdown-menu,
@@ -15227,7 +15227,7 @@ input[type=search] {
 input[type=radio],
 input[type=checkbox] {
   margin: 4px 0 0;
-  margin-top: 1px \9;
+  margin-top: 1px \9 ;
   line-height: normal;
 }
 
@@ -15371,7 +15371,7 @@ input[type=month].input-lg,
 .checkbox-inline input[type=checkbox] {
   position: absolute;
   margin-left: -20px;
-  margin-top: 4px \9;
+  margin-top: 4px \9 ;
 }
 
 .radio + .radio,
@@ -16134,7 +16134,7 @@ tbody.collapse.in {
   margin-left: 2px;
   vertical-align: middle;
   border-top: 4px dashed;
-  border-top: 4px solid \9;
+  border-top: 4px solid \9 ;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -16257,7 +16257,7 @@ tbody.collapse.in {
 .navbar-fixed-bottom .dropdown .caret {
   border-top: 0;
   border-bottom: 4px dashed;
-  border-bottom: 4px solid \9;
+  border-bottom: 4px solid \9 ;
   content: "";
 }
 .dropup .dropdown-menu,
@@ -16694,13 +16694,13 @@ tbody.collapse.in {
   margin-left: 0;
 }
 
-.nav-justified, .nav-tabs.nav-justified {
+.nav-justified {
   width: 100%;
 }
-.nav-justified > li, .nav-tabs.nav-justified > li {
+.nav-justified > li {
   float: none;
 }
-.nav-justified > li > a, .nav-tabs.nav-justified > li > a {
+.nav-justified > li > a {
   text-align: center;
   margin-bottom: 5px;
 }
@@ -16709,11 +16709,11 @@ tbody.collapse.in {
   left: auto;
 }
 @media (min-width: 768px) {
-  .nav-justified > li, .nav-tabs.nav-justified > li {
+  .nav-justified > li {
     display: table-cell;
     width: 1%;
   }
-  .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
+  .nav-justified > li > a {
     margin-bottom: 0;
   }
 }
@@ -19072,7 +19072,7 @@ button.close {
   border: 1px solid #fff;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #000 \9;
+  background-color: #000 \9 ;
   background-color: rgba(0, 0, 0, 0);
 }
 .carousel-indicators .active {
@@ -21201,7 +21201,7 @@ ul.filter-list li a:hover {
     margin: 0px -40px;
   }
 }
-.pricing-table-content ul li:nth-child(2n + 1) {
+.pricing-table-content ul li:nth-child(2n+1) {
   background-color: #fbfbfb;
 }
 .pricing-table-content .btn {
@@ -21840,6 +21840,8 @@ ul.filter-list li a:hover {
 }
 .company-stat span {
   color: #999;
+  height: 26px;
+  line-height: 32px;
 }
 .company-stat strong {
   color: #55a747;
@@ -22460,3 +22462,5 @@ ul.filter-list li a:hover {
 .main {
   padding: 60px 0px;
 }
+
+/*# sourceMappingURL=App.css.map */

@@ -6,22 +6,25 @@ const InvoiceInfo = ({
                      }) => (
     <div>
         <div className="row">
-
             <div className="company-stats">
                 <div className="company-stat col-xs-12 col-sm-6">
-                    <span>Total price, Euro</span>
+                    <span>
+                        Total price, Euro
+                        <div className="resume-main-verified">
+                            <i className="fa fa-check"/>
+                        </div>
+                    </span>
                     <strong>{total}</strong>
-                    <div className="resume-main-verified">
-                        <i className="fa fa-check"/>
-                    </div>
                 </div>
 
                 <div className="company-stat col-xs-12 col-sm-6">
-                    <span>Netto, kg</span>
+                    <span>
+                        Netto, kg
+                        {/*<div className="resume-main-verified">
+                            <i className="fa fa-check"/>
+                        </div>*/}
+                    </span>
                     <strong>{netto}</strong>
-                    <div className="resume-main-verified">
-                        <i className="fa fa-check"/>
-                    </div>
                 </div>
             </div>
 
