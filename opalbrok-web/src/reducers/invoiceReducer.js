@@ -63,7 +63,9 @@ export default function invoiceReducer(state = initialState.invoice, action) {
                 missedPositions: action.data.missedPositions,
                 missedPositionsUrl: action.data.url,
                 netto: action.data.netto,
-                total: action.data.total
+                isNettoVerified: action.data.isNettoVerified,
+                total: action.data.total,
+                isTotalVerified: action.data.isTotalVerified
             };
 
         case types.INVOICE_CALCULATE_FAILURE:
@@ -73,7 +75,9 @@ export default function invoiceReducer(state = initialState.invoice, action) {
                 missedPositions: 0,
                 missedPositionsUrl: '',
                 netto: 0,
-                total: 0
+                isNettoVerified: false,
+                total: 0,
+                isTotalVerified: false
             };
 
         default:

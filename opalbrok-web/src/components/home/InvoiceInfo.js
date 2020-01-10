@@ -1,8 +1,9 @@
 import React from 'react';
 
 const InvoiceInfo = ({
-                         total, netto, onStart, onColliUpdated,
-                         onBruttoUpdated, colli, brutto, isGenerating
+                         total, netto, isTotalVerified, isNettoVerified,
+                         onStart, onColliUpdated,onBruttoUpdated, colli,
+                         brutto, isGenerating
                      }) => (
     <div>
         <div className="row">
@@ -10,9 +11,9 @@ const InvoiceInfo = ({
                 <div className="company-stat col-xs-12 col-sm-6">
                     <span>
                         Total price, Euro
-                        <div className="resume-main-verified">
+                        {isTotalVerified && <div className="resume-main-verified">
                             <i className="fa fa-check"/>
-                        </div>
+                        </div>}
                     </span>
                     <strong>{total}</strong>
                 </div>
@@ -20,9 +21,9 @@ const InvoiceInfo = ({
                 <div className="company-stat col-xs-12 col-sm-6">
                     <span>
                         Netto, kg
-                        {/*<div className="resume-main-verified">
+                        {isNettoVerified && <div className="resume-main-verified">
                             <i className="fa fa-check"/>
-                        </div>*/}
+                        </div>}
                     </span>
                     <strong>{netto}</strong>
                 </div>
@@ -54,5 +55,3 @@ const InvoiceInfo = ({
 );
 
 export default InvoiceInfo;
-
-

@@ -146,7 +146,9 @@ class HomePage extends React.Component {
                 colli: this.state.colli,
                 brutto: this.state.brutto,
                 netto: this.props.invoice.netto,
+                isNettoVerified: this.props.invoice.isNettoVerified,
                 total: this.props.invoice.total,
+                isTotalVerified: this.props.invoice.isTotalVerified,
                 fileName: this.props.invoice.fileName
             });
         }
@@ -173,7 +175,9 @@ class HomePage extends React.Component {
         if (this.props.invoice.urlOne && this.props.invoice.urlTwo && !this.state.fileUpload)
             isShowResults = true;
         const total = formatNumber(this.props.invoice.total);
+        const isTotalVerified = this.props.invoice.isTotalVerified;
         const netto = formatNumber(this.props.invoice.netto);
+        const isNettoVerified = this.props.invoice.isNettoVerified;
 
         return (
             <div className="page-wrapper">
@@ -204,6 +208,8 @@ class HomePage extends React.Component {
                                         {(this.state.isShowInvoiceInfo) &&
                                         <InvoiceInfo total={total}
                                                      netto={netto}
+                                                     isTotalVerified={isTotalVerified}
+                                                     isNettoVerified={isNettoVerified}
                                                      onStart={this.onStart}
                                                      onBruttoUpdated={this.onBruttoUpdated}
                                                      onColliUpdated={this.onColliUpdated}
