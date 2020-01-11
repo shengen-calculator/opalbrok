@@ -135,6 +135,8 @@ const calculateInvoice = async (data, context) => {
         rowValues[2] = x.description;
         rowValues[3] = x.descriptionUa;
         rowValues[4] = x.uom;
+        rowValues[5] = x.uom === 'P' ? 796 : 6;
+        rowValues[6] = x.uom === 'P' ? 'шт' : 'м';
         catalogWorksheet.addRow(rowValues);
     });
 
