@@ -1,5 +1,5 @@
+1. First approach, use emulator
 export GOOGLE_APPLICATION_CREDENTIALS="key.json"
-
 firebase emulators:start --only functions
 
 POST http://localhost:5001/broker-d9a50/us-central1/calculateInvoice
@@ -8,3 +8,10 @@ BODY raw json(application/json)
 {
     "data":"opalbrok_invoice.xlsx"
 }
+
+2. Second approach, use functions:shell
+
+export GOOGLE_APPLICATION_CREDENTIALS="key.json"
+npm start
+
+calculateInvoice('opalbrok_invoice.xlsx')
