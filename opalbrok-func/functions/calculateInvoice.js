@@ -22,6 +22,10 @@ const calculateInvoice = async (data, context) => {
     const workbook = await utils.ReadXls(`/InBox/${data}`);
     let grandTotal = 0;
     let weightTotal = 0;
+    let verified = {
+        isNettoVerified: false,
+        isTotalVerified: false
+    };
     let notFound = 0;
 
 
@@ -33,39 +37,42 @@ const calculateInvoice = async (data, context) => {
 
     //check if the all positions are presents in catalog
 
-    workbook.eachSheet((worksheet) => {
-        worksheet.eachRow((row) => {
-            if (!isCalculateEnded) {
-                if (utils.isDataRow(row)) {
-                    isCalculateStarted = true;
-                    const item = {
-                        id: row.values[2].toString(),
-                        description: row.values[3].toString(),
-                        descriptionUa: row.values[4].toString(),
-                        uom: row.values[5].toString()
-                    };
+    let worksheet = workbook.getWorksheet('Invoice');
+    worksheet.eachRow((row) => {
+        if (isCalculateEnded !== true) {
+            if (utils.isDataRow(row)) {
+                isCalculateStarted = true;
+                const item = {
+                    id: row.values[2].toString(),
+                    description: row.values[3].toString(),
+                    descriptionUa: row.values[4].toString(),
+                    uom: row.values[5].toString()
+                };
 
-                    const totalPrice = row.values[8];
-                    const weight = row.values[9];
+                const totalPrice = row.values[8];
+                const weight = row.values[9];
 
-                    if (item.id) {
-                        promises.push(
-                            admin.firestore().collection('products').doc(item.id.replace('/', '#')).get()
-                        );
+                if (item.id) {
+                    promises.push(
+                        admin.firestore().collection('products').doc(item.id.replace('/', '#')).get()
+                    );
 
-                        grandTotal += totalPrice;
-                        weightTotal += weight;
-                        invoiceItems.push(item);
+                    grandTotal += totalPrice;
+                    weightTotal += weight;
+                    invoiceItems.push(item);
 
-                    }
-                } else {
-                    if (isCalculateStarted)
-                        isCalculateEnded = true;
+                }
+            } else {
+                if (isCalculateStarted === true) {
+                    isCalculateEnded = true;
+                    utils.dataVerify(row, verified, grandTotal, weightTotal);
                 }
             }
-
-        });
+        } else {
+            utils.dataVerify(row, verified, grandTotal, weightTotal);
+        }
     });
+
 
     const snapshots = await Promise.all(promises);
 
@@ -82,9 +89,9 @@ const calculateInvoice = async (data, context) => {
     if (notFound === 0) {
         return {
             total: Math.round(grandTotal * 100) / 100,
-            isTotalVerified: false,
-            netto: Math.round(weightTotal * 1000) / 1000,
-            isNettoVerified: false,
+            isTotalVerified: verified.isTotalVerified,
+            netto: Math.round(weightTotal * 100) / 100,
+            isNettoVerified: verified.isNettoVerified,
             missedPositions: 0,
             url: ''
         };
