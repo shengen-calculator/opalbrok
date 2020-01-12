@@ -38,8 +38,12 @@ const calculateInvoice = async (data, context) => {
     //check if the all positions are presents in catalog
 
     let worksheet = workbook.getWorksheet('Invoice');
+    if (!worksheet) {
+        throw new functions.https.HttpsError('invalid-argument',
+            'Uploaded xlsx-file doesn't contains tab "Invoice"');
+    }
     worksheet.eachRow((row) => {
-        if (isCalculateEnded !== true) {
+        if (!isCalculateEnded) {
             if (utils.isDataRow(row)) {
                 isCalculateStarted = true;
                 const item = {
@@ -63,7 +67,7 @@ const calculateInvoice = async (data, context) => {
 
                 }
             } else {
-                if (isCalculateStarted === true) {
+                if (isCalculateStarted) {
                     isCalculateEnded = true;
                     utils.dataVerify(row, verified, grandTotal, weightTotal);
                 }
