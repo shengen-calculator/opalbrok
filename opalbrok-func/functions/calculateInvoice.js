@@ -40,7 +40,7 @@ const calculateInvoice = async (data, context) => {
     let worksheet = workbook.getWorksheet('Invoice');
     if (!worksheet) {
         throw new functions.https.HttpsError('invalid-argument',
-            'Uploaded xlsx-file doesn't contains tab "Invoice"');
+            'Uploaded xlsx-file does not contain tab "Invoice"');
     }
     worksheet.eachRow((row) => {
         if (!isCalculateEnded) {
