@@ -208,8 +208,8 @@ class HomePage extends React.Component {
                                         {(this.state.isShowInvoiceInfo) &&
                                         <InvoiceInfo total={total}
                                                      netto={netto}
-                                                     isTotalVerified={isTotalVerified}
-                                                     isNettoVerified={isNettoVerified}
+                                                     isTotalNotVerified={!isTotalVerified}
+                                                     isNettoNotVerified={!isNettoVerified}
                                                      onStart={this.onStart}
                                                      onBruttoUpdated={this.onBruttoUpdated}
                                                      onColliUpdated={this.onColliUpdated}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const InvoiceInfo = ({
-                         total, netto, isTotalVerified, isNettoVerified,
+                         total, netto, isTotalNotVerified, isNettoNotVerified,
                          onStart, onColliUpdated,onBruttoUpdated, colli,
                          brutto, isGenerating
                      }) => (
@@ -11,7 +11,7 @@ const InvoiceInfo = ({
                 <div className="company-stat col-xs-12 col-sm-6">
                     <span>
                         Total price, Euro
-                        {!isTotalVerified && <div className="resume-main-not-verified">
+                        {isTotalNotVerified && <div className="resume-main-not-verified">
                             <i className="fa fa-warning"/>
                         </div>}
                     </span>
@@ -21,7 +21,7 @@ const InvoiceInfo = ({
                 <div className="company-stat col-xs-12 col-sm-6">
                     <span>
                         Netto, kg
-                        {!isNettoVerified && <div className="resume-main-not-verified">
+                        {isNettoNotVerified && <div className="resume-main-not-verified">
                             <i className="fa fa-warning"/>
                         </div>}
                     </span>
