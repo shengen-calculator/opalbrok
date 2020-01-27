@@ -22101,8 +22101,8 @@ ul.filter-list li a:hover {
   vertical-align: 1px;
 }
 
-.resume-main-verified {
-  background-color: #55a747;
+.resume-main-not-verified {
+  background-color: #f00;
   border-radius: 50%;
   color: #fff;
   display: inline-block;
@@ -22114,7 +22114,7 @@ ul.filter-list li a:hover {
   vertical-align: 5px;
   width: 24px;
 }
-.resume-main-verified .fa {
+.resume-main-not-verified .fa {
   margin-top: 5px;
 }
 

@@ -11,8 +11,8 @@ const InvoiceInfo = ({
                 <div className="company-stat col-xs-12 col-sm-6">
                     <span>
                         Total price, Euro
-                        {isTotalVerified && <div className="resume-main-verified">
-                            <i className="fa fa-check"/>
+                        {!isTotalVerified && <div className="resume-main-not-verified">
+                            <i className="fa fa-warning"/>
                         </div>}
                     </span>
                     <strong>{total}</strong>
@@ -21,8 +21,8 @@ const InvoiceInfo = ({
                 <div className="company-stat col-xs-12 col-sm-6">
                     <span>
                         Netto, kg
-                        {isNettoVerified && <div className="resume-main-verified">
-                            <i className="fa fa-check"/>
+                        {!isNettoVerified && <div className="resume-main-not-verified">
+                            <i className="fa fa-warning"/>
                         </div>}
                     </span>
                     <strong>{netto}</strong>
