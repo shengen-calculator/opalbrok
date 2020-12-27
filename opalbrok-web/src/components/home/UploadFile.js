@@ -26,6 +26,7 @@ const UploadFile = ({file, onLoad, onChange, isWorking, status}) => {
                                     'btn btn-primary btn-file disabled' :
                                     'btn btn-primary btn-file'}>Browse<input
                                 type="file" name="form-register-photo"
+                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx"
                                 onChange={onChange}
                                 onClick={clearInput}
                                 disabled={isWorking}/></div>
